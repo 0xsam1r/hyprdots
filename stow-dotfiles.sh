@@ -14,8 +14,8 @@ echo -e "\033[0m"  # Reset color
 
 ln -s ~/dotfiles/scripts ~/.config/scripts
 
-mkdir -p ~/Pictures/wallpapers
-stow -t ~/Pictures/wallpapers wallpapers
+# mkdir -p ~/Pictures/wallpapers
+# stow -t ~/Pictures/wallpapers wallpapers
 
 mkdir -p ~/.config/mako
 stow -t ~/.config config
