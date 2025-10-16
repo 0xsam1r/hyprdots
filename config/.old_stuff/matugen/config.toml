@@ -1,0 +1,62 @@
+#  ┳┳┓┏┓┏┳┓┳┳┏┓┏┓┳┓
+#  ┃┃┃┣┫ ┃ ┃┃┃┓┣ ┃┃
+#  ┛ ┗┛┗ ┻ ┗┛┗┛┗┛┛┗
+#                  
+
+# Global Configs
+[config]
+
+# Templates
+
+# kitty
+[templates.kitty]
+input_path = '~/.config/matugen/templates/kitty-colors.conf'
+output_path = '~/.cache/wallpaper-theme/kitty-colors.conf'
+post_hook = "kill -SIGUSR1 $(pidof kitty)"  # thanks to issues in githup
+
+# Rofi
+[templates.rofi]
+input_path = '~/.config/matugen/templates/rofi-colors.rasi'
+output_path = '~/.cache/wallpaper-theme/rofi-colors.rasi'
+
+# Hyprland
+[templates.hyprland]
+input_path = '~/.config/matugen/templates/hyprland-colors.conf'
+output_path = '~/.cache/wallpaper-theme/hyprland-colors.conf'
+post_hook = 'hyprctl reload'
+
+# Hyprlock
+[templates.hyprlock]
+input_path = '~/.config/matugen/templates/hyprlock-colors.conf'
+output_path = '~/.cache/wallpaper-theme/hyprlock-colors.conf'
+
+
+# CSS colors for waybar and swaync and wlogout
+[templates.css]
+input_path = '~/.config/matugen/templates/colors.css'
+output_path = '~/.cache/wallpaper-theme/colors.css'
+post_hook = 'pkill -SIGUSR2 waybar && swaync-client -rs'
+
+
+# GTK 3, 4
+[templates.gtk]
+input_path = '~/.config/matugen/templates/gtk-colors.css'
+output_path = '~/.cache/wallpaper-theme/gtk-colors.css'
+
+# QT 5, 6 
+[templates.qtct]
+input_path = '~/.config/matugen/templates/qtct-colors.conf'
+output_path = '~/.cache/wallpaper-theme/qtct-colors.conf'
+
+# pywalfox
+[templates.pywalfox]
+input_path = "~/.config/matugen/templates/pywalfox-colors.json"
+output_path = "~/.cache/wal/colors.json"
+post_hook = "pywalfox update"
+
+# Zathura pdf viewer
+[templates.zathura]
+input_path = '~/.config/matugen/templates/matugen-zathurarc'
+output_path = '~/.cache/wallpaper-theme/matugen-zathurarc'
+
+

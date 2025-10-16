@@ -1,0 +1,118 @@
+/**
+[X] All transpet
+[X] text has the same color 
+[X] no border
+[X] blur in place of background
+ */
+
+/*==================================================
+======== Coder: Samir Ahmed
+======== 
+*/
+@theme "/dev/null"
+* {
+    main-bg:            #151720e6;
+    main-fg:            #cbced3ff;
+    // border
+    main-br:            #98d3eecc;
+    //	extra
+    main-ex:            #95d3afcc;
+    select-bg:          #90ceaaff;
+    select-fg:          #151720ff;
+    separatorcolor:     transparent;
+    border-color:       transparent;
+}
+
+
+
+* {
+	font:                        "JetBrains Mono Nerd Font 14";
+}
+
+configuration {
+	modi:                       "drun";
+	show-icons:                 true;
+	drun-display-format:        "{name}";
+}
+
+window {
+	transparency:			"real";
+	height:   			80%;
+    	width:				100%;
+    	location: 			center;
+    	anchor:				center;
+	fullscreen:		     	false;
+	enabled:                     	true;
+    	// border-radius:               	2em;
+    	// cursor:                      	none;
+	text-color: 			@main-fg;
+	background-color: 		transparent;
+}
+mainbox {
+	padding: 2em;
+ 	enabled:                     true;
+    	// spacing:                     0px;
+    	background-color:            inherit;
+    	orientation:                 vertical;
+	text-color:		     @main-fg;
+    	children:                    [ "listview" ];
+}
+
+/*****----- Listview -----*****/
+listview {
+    enabled:                     true;
+    // columns:                     2;
+    // lines:                       1;
+    cycle:                       false;
+    scrollbar:                   false;
+    layout:                      horizontal;
+    fixed-height:                false;
+    fixed-columns:               false;
+    
+    spacing:                     1em;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      none;
+    border-radius:               0px;
+    // border-color:                @border-colour;
+    background-color:            transparent;
+    text-color:                  @main-fg;
+}
+
+/*****----- Elements -----*****/
+element {
+    	enabled:                     true;
+    	padding:                     3.5em;
+	border: 0.1em solid;
+	border-color: @border-color;
+    	border-radius:               1%;
+    	background-color:            inherit;
+    	text-color:                  inherit;
+}
+
+
+element normal {
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+
+element selected.normal {
+    background-color:            @select-bg;
+    text-color:                  @select-fg;
+}
+
+element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        12em;
+}
+
+element-text {
+    background-color:            transparent;
+	//padding: 1.5em;
+    text-color:                  inherit;
+    vertical-align:              0.5;
+    horizontal-align:            0.5;
+}
+
+

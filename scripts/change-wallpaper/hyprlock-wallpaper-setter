@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+WALL="$1"
+LOCK_DIR="$HOME/.cache/wal"
+LOCK_DEST="$LOCK_DIR/hyprlock.png"
+
+# Create cache directory if missing
+mkdir -p "$LOCK_DIR" || { 
+    notify-send "Convert wallpaper" "❌ Failed to create $LOCK_DIR"
+    exit 1
+}
+
+# Clean up any existing numbered files
+rm -f "$LOCK_DIR"/hyprlock-*.png
+
+# Validate input
+if [[ ! -f "$WALL" ]]; then
+    notify-send "Convert wallpaper" "❌ Wallpaper not found: $WALL"
+    exit 1
+fi
+
+MIME_TYPE=$(file --mime-type -b "$WALL")
+
+# Handle all image types with proper ImageMagick syntax
+if [[ "$MIME_TYPE" == "image/gif" || "$MIME_TYPE" == "image/webp" ]]; then
+    # Extract first frame and force single output
+    magick "$WALL[0]" "$LOCK_DEST" && \
+        notify-send "Convert wallpaper" "🌀 Converted animated wallpaper"
+elif [[ "$MIME_TYPE" == "image/png" ]]; then
+    cp "$WALL" "$LOCK_DEST" && \
+        notify-send "Convert wallpaper" "✅ Copied PNG to cache"
+else
+    magick "$WALL" -scene 1 "$LOCK_DEST" && \
+        notify-send "Convert wallpaper" "📷 Converted static wallpaper"
+fi
+
+# Handle conversion failure
+if [[ $? -ne 0 ]]; then
+    notify-send "Convert wallpaper" "❌ Conversion failed for: $WALL"
+    exit 1
+fi
+
+exit 0

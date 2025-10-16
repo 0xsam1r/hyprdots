@@ -1,0 +1,102 @@
+========================
+Base
+========================
+hyprland -> wm
+sddm -> session manager
+kitty -> defualt terminal for hyprland
+waybar -> bar for hyprland
+rofi -> app lancher 
+libnotify -> notification lib for apps
+mako -> notification server
+========================================
+intel gpu drivers
+========================================
+mesa
+vulkan-intel
+========================================
+intel cpu Microcode (intel, amd)
+========================================
+intel-ucode
+========================================
+Audio stuff pipewire
+========================================
+sudo pacman -S pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber
+systemctl --user --now enable pipewire.service pipewire-pulse.service
+pipewire 
+pipewire-pulse 
+pipewire-alsa 
+pipewire-jack 
+wireplumber
+yay -S pwvucontrol # for gui audio control
+===========================================
+hyprland stuff
+===========================================
+hyprland
+hyprlock -> screen lock
+hypridle -> idle screen when it not active
+xdg-desktop-portal-hyprland # enable share-screen file-packers
+xdg-desktop-portal-gtk # file picker app
+hyprpolkitagent -> authentication stuff
+qt5-wayland 
+qt6-wayland
+grim
+slurp
+===========================
+zsh stuff
+===========================
+chsh -s /bin/zsh username ->> change shell to zsh for username
+sudo pacman -S zsh git eza fzf zoxide zsh-syntax-highlighting zsh-completions zsh-autosuggestions ttf-meslo-nerd
+yay -S pokeget
+zsh ->> sure :)
+git -> for git stuff
+eza -> nice ls icons and others 
+fzf -> nice navigation
+zoxide -> fast cd, use smart database 
+ttf-meslo-nerd -> nice font
+pokeget AUR -> nice pokemon
+============================
+fonts needed
+============================ 
+# Arabic fonts
+sudo pacman -S noto-fonts noto-fonts-cjk noto-fonts-extra ttf-dejavu
+noto-fonts	Covers Latin, numbers, and basic symbols
+noto-fonts-cjk, noto-fonts-extra	Adds Arabic, Hebrew, and Asian languages
+
+============================
+waybar
+============================
+waybar
+power-profiles-daemon
+blueman -> for bluetooth tray
+network-manager-applet -> network tray
+wlogout -> logout menu from screen
+============================
+Bluotooth
+============================
+bluez -> main protocal
+bluez-utils -> utils 
+bluez-deprecated-tools -> old bluetooth apps
+blueman -> gui and tray
+sudo systemctl enable --now bluetooth.service
+===========================
+apps
+===========================
+vivaldi -> nice and save browser
+vscodium-bin (AUR) -> nice text editor
+eww (AUR) -> widgets maker
+unzip -> extract .zip files
+inetutils -> common network programs like hostname
+libreoffice-still -> office application alike the satble version
+marktext-bin (AUR) -> markdown editor
+==========================
+theming
+=========================
+swww -> wallpaper server 
+wallust -> generate colors palate from wallpaper
+imagemagick -> edits in images
+=========================
+java
+========================
+jdk-openjdk -> jdk enviroment to run and compile java code
+intellij-idea-community-edition -> ide for jave (try it)
+netbeans -> common ide 

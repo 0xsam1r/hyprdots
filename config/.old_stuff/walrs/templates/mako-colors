@@ -1,0 +1,65 @@
+# walrs -> mako template
+# Save as: ~/.config/walrs/templates/mako.template
+# Placeholders provided by walrs: {background}, {foreground}, {cursor}, {color0} ... {color15}, {alpha}
+# If walrs outputs 6-digit hex (#rrggbb) and also {alpha} (like "cc"), use {background}{alpha}
+# If walrs outputs full 8-digit hex (#rrggbbaa), use {background}
+
+# -----------------------
+# General layout
+# -----------------------
+margin=12
+padding=12
+border-size=2
+border-radius=8
+font=JetBrainsMono Nerd Font 11
+default-timeout=5000
+layer=overlay
+anchor=top-right
+
+# -----------------------
+# Core colors (choose the uncommented lines that match your walrs output)
+# -----------------------
+# If walrs provides 6-digit hex and {alpha} separately:
+background-color={background.alpha}
+
+
+text-color={foreground}
+# border (accent)
+border-color={color7}
+
+# -----------------------
+# Per-urgency overrides
+# -----------------------
+[urgency=low]
+# low: soft / neutral
+border-color={color4}  
+
+#background-color={color0}{alpha}
+# If walrs outputs 8-digit hex use:
+# background-color={color0}
+
+[urgency=normal]
+# normal: default notification
+border-color={color2} 
+#background-color={background}{alpha}
+# If walrs outputs 8-digit hex use:
+# background-color={background}
+
+[urgency=critical]
+# critical: sticky until dismissed (0 = no auto timeout)
+default-timeout=0
+border-color={color6}
+text-color={color7}
+#background-color={color6}{alpha}
+# Or if walrs outputs rgba hex:
+# background-color={color6}
+
+# -----------------------
+# Example optional tweaks
+# -----------------------
+# show icons as circular?
+# icon-round=true
+
+# If you want different color for summaries / body you can add:
+# summary-color={color10}
+# body-color={foreground}

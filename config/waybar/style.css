@@ -1,0 +1,245 @@
+/*
+ _       __               ____              
+| |     / /____ _ __  __ / __ ) ____ _ _____
+| | /| / // __ `// / / // __  |/ __ `// ___/
+| |/ |/ // /_/ // /_/ // /_/ // /_/ // /    
+|__/|__/ \__,_/ \__, //_____/ \__,_//_/     
+               /____/                       
+---------------------------------------------------------------
+Written by Samir Ahmed
+
+Repository Link: https://github.com/0xsam1r/dotfiles
+---------------------------------------------------------------               
+*/
+
+/*
+rem: used to root things base layouts and spacing 
+em: relevent for the parent element 
+
+
+*/
+
+@import '../../.cache/wallust/waybar-colors.css';
+
+
+/* ============ Animations ============ */
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* ============ Base Settings ============ */
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 14px;
+
+}
+
+/* ============ Waybar Container ============ */
+window#waybar {
+    background-color: @background;
+    color: @foreground;
+     /* Optional subtle line */
+}
+
+
+
+
+
+/* ============ Modules Shared Style ============ */
+#workspaces button,
+#privacy-item,
+#cpu,
+#memory,
+#temperature,
+#pulseaudio,
+#privacy,
+#custom-camera,
+#tray,
+#battery,
+#backlight,
+#power-profiles-daemon,
+#clock,
+#custom-power,
+#custom-launcher,
+#hyprland-window,
+#idle_inhibitor {
+    padding: 0 5px;
+    
+    border-radius: 100px;
+}
+
+/* Hover Effects */
+#workspaces button:hover,
+#clock:hover,
+#custom-launcher:hover,
+#idle_inhibitor:hover {
+    margin: 0 7px;
+    border-radius: 0px;
+    background: @cursor;
+    color: @color0;
+    transition:
+        margin 0.6s ease,
+        border-radius 0.5s ease;
+}
+
+/* Power button specific hover */
+#custom-power:hover {
+margin: 0 7px;
+  color: @cursor;
+      transition:
+        margin 0.6s ease,
+        border-radius 0.5s ease;
+}
+
+/* ============ Tooltip ============ */
+tooltip {
+  background-color: @background;
+  border: 0.1rem solid @color7;
+  border-radius: 7px;
+}
+tooltip label {
+  color: @foreground;
+  padding: 3px;
+}
+
+/* ============ Workspaces ============ */
+#workspaces button {
+  color: @foreground;
+}
+#workspaces button label {
+  letter-spacing: 0; /* Keeps icons tight */
+}
+#workspaces button.active {
+  background: @foreground;
+  color: @color0;
+  border-radius: 0;
+}
+#workspaces button.urgent {
+  background-color: @color1;
+}
+
+/* ============ Idle Inhibitor ============ */
+#idle_inhibitor.activated {
+  background: @color2;
+  color: @color15;
+}
+
+/* ============ Temperature ============ */
+#temperature.critical {
+  background-color: @color1;
+}
+
+/* ============ Privacy Indicators ============ */
+#privacy-item.screenshare,
+#custom-camera.active,
+#privacy-item.audio-in {
+  background-color: @cursor;
+  color: @color0;
+  animation: blink 0.5s steps(12) infinite alternate;
+}
+
+/* ============ Camera Icon ============ */
+#custom-camera {
+  font-size: 12px;
+}
+
+/* ============ System Tray ============ */
+#tray {
+    padding: 0 5px 0 5px;
+    color: @foreground;
+}
+
+
+menu {
+    background-color: @background;
+    border: 0.1rem solid @color7;
+    border-radius: 7px;
+    color: @foreground;
+    padding: 3px;
+}
+
+#tray menu menuitem:hover {
+  background: @foreground;
+  color: @background;
+	border-radius: 3.5px;
+}
+
+
+/* ============ Power Profiles ============ */
+#power-profiles-daemon {
+  padding-right: 12px;
+  font-size: 20px ;
+}
+
+#power-profiles-daemon.performance {
+  
+  color: @color10;
+}
+
+#power-profiles-daemon.balanced {
+  
+  color: @color15;
+}
+
+#power-profiles-daemon.power-saver {
+  
+  color: @color4;
+}
+
+/* ============ Battery ============ */
+#battery.warning:not(.charging) {
+  color: @color0;
+  background-color: @color15;
+}
+
+#battery.critical {
+  background-color: @color0;
+  color: @color15;
+  animation: blink 0.5s steps(12) infinite alternate;
+}
+
+#battery.charging {
+  background-color: @color0;
+  color: @color15;
+}
+
+
+/* ============ Custom Power Button ============ */
+#custom-power {
+  padding: 0px 17px 0px 0px;
+  color: @color15;
+
+  font-size: 20px;
+}
+
+/*
+for fonts:
+1. "JetBrainsMono Nerd Font"
+   ▪️ ممتازة للتطبيقات و الواجهات بشكل عام – نظيفة وواضحة
+   ▪️ تثبيت:
+      yay -S ttf-jetbrains-mono-nerd
+
+2. "Iosevka Nerd Font"
+   ▪️ خط برمجي نحيف ومنظم – مثالي للكود وتوزيع النصوص
+   ▪️ تثبيت:
+      yay -S ttf-iosevka-nerd
+
+3. "FiraCode Nerd Font"
+   ▪️ مشهور جدًا بين المبرمجين – يدعم ligatures
+   ▪️ تثبيت:
+      yay -S ttf-firacode-nerd
+
+4. "Mononoki Nerd Font"
+   ▪️ خط مميز ومريح للعين، ويشبه الخطوط التقليدية للكود
+   ▪️ تثبيت:
+      yay -S ttf-mononoki-nerd
+
+5. "Hack Nerd Font"
+ * خط كلاسيكي واضح ممتاز للطرفية وبيئات البرمجة.
+ * تثبيت: yay -S ttf-hack-nerd أو تحميل يدوي من Nerd Fonts GitHub.
+ * يدعم آلاف الأيقونات (Nerd Font) ويُميز الرموز بدقة (O/0, l/1).
+ تثييت: 
+  yay -S ttf-hack-nerd
+  */

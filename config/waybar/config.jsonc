@@ -1,0 +1,292 @@
+/*
+ _       __               ____              
+| |     / /____ _ __  __ / __ ) ____ _ _____
+| | /| / // __ `// / / // __  |/ __ `// ___/
+| |/ |/ // /_/ // /_/ // /_/ // /_/ // /    
+|__/|__/ \__,_/ \__, //_____/ \__,_//_/     
+               /____/                       
+---------------------------------------------------------------
+Written by Samir Ahmed
+
+Repository Link: https://github.com/samir176520/dotfiles
+---------------------------------------------------------------               
+*/
+
+// -*- mode: jsonc -*-
+{
+  "position": "bottom", // Waybar position (top|bottom|left|right)
+  //"width": 1100,
+   "reload_style_on_change": true, 
+
+  // Choose the order of the modules
+  "modules-left": [
+    "custom/launcher",
+    "hyprland/workspaces",
+    "hyprland/submap",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "idle_inhibitor",
+    "cpu",
+    "memory",
+    "temperature",
+    "pulseaudio",
+    "privacy",
+    "custom/camera"
+  ],
+  "modules-right": [
+    "tray",
+    "power-profiles-daemon",
+    "backlight",
+    "battery",
+    "clock",
+    "custom/power"
+  ],
+
+
+  "custom/launcher": {
+    "format": " {}",
+    "exec": "date +'Day %j'", // Julian day counter
+    "on-click": "kitty -e sh -c 'fastfetch; read -p \"Press enter to close...\"'",
+    "tooltip": true,
+    "tooltip-format": "System Info Launcher"
+  },
+
+  "hyprland/workspaces": {
+    "format": "{icon} {windows}",
+    "window-rewrite-default": "",
+    "window-rewrite": {
+      // ---- Terminals ----
+      "class<.*[tT]erminal.*>": "",
+      "class<kitty>": "",
+      "class<foot>": "",
+      "class<alacritty>": "",
+      "class<wezterm>": "",
+
+      // ---- Browsers ----
+      "class<.*[fF]irefox.*>": "",
+      "class<.*[cC]hrome.*>": "",
+      "class<.*[bB]rave.*>": "",
+
+      // ---- Code Editors ----
+      "class<.*[cC]ode.*>": "󰨞",
+      "class<.*[cC]odium.*>": "󰨞",
+      "class<.*[sS]ublime.*>": "",
+
+      // ---- File Managers ----
+      "class<.*[fF]ile.*>": "",
+      "class<.*[tT]hunar.*>": "",
+      "class<.*[dD]olphin.*>": "",
+
+      // ---- Media ----
+      "class<.*[gG]imp.*>": "󰸭",
+      "class<.*[mM]pv.*>": "󰨇",
+      "class<.*[sS]potify.*>": "",
+
+      // ---- System Tools ----
+      "class<.*[sS]ettings.*>": "",
+      "class<.*[dD]iscord.*>": "󰙯",
+      "class<.*[sS]team.*>": ""
+    }
+  },
+
+  "hyprland/window": {
+    "format": "  {class}",               // Shown in the bar
+    "tooltip": true,
+    "tooltip-format": "{title}",       // Shown on hover
+    "separate-outputs": true
+  },
+
+  // define custome modes and this work like indicator for this mode
+  //"hyprland/submap": {
+  //    "format": "<span style=\"italic\">{}</span>"
+  //},
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": " ",
+      "deactivated": " "
+    }
+  },
+  
+
+  "cpu": {
+    "format": "{usage}%  ",
+    "tooltip": true
+  },
+
+
+  "memory": {
+    "interval": 5,
+    "format": "{}%  ",
+    "tooltip": true,
+    "tooltip-format": " RAM: {used} / {total} GB\n💾 Swap: {swapUsed} / {swapTotal} GB"
+  },
+
+
+  "temperature": {
+    "thermal-zone": 1,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp_input",
+    "critical-threshold": 80,
+    "format-critical": "{temperatureC}°C  ",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "tooltip": true,
+    "on-double-click": "kitty -e btop"
+  },
+
+
+  "pulseaudio": {
+    "scroll-step": 0.5, // can be a float
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [" ", " ", " " ]
+    },
+    "on-click": "pwvucontrol"
+  },
+
+
+  "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "modules": [
+      {
+        "type": "screenshare",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-in",
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      }
+    ],
+    "ignore-monitor": true,
+    "ignore": [
+      {
+        "type": "audio-in",
+        "name": "cava"
+      },
+      {
+        "type": "screenshare",
+        "name": "obs"
+      }
+    ]
+  },  
+  
+  
+  "custom/camera": {
+    "exec": "~/.config/scripts/camera-status.sh",
+    "return-type": "json",
+    "format": "{}",
+    "interval": 1,
+    "tooltip": false,
+    "hide-empty": true
+  },
+
+
+  //"network": {
+  //    // "interface": "wlp2*", // (Optional) To force the use of this interface
+  //    "format-wifi": "{essid} ({signalStrength}%) ",
+  //    "format-ethernet": "{ipaddr}/{cidr} ",
+  //    "tooltip-format": "{ifname} via {gwaddr} ",
+  //   "format-linked": "{ifname} (No IP) ",
+  //    "format-disconnected": "Disconnected ⚠",
+  //    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  //},
+
+
+  "tray": {
+    "spacing": 12
+  },
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "󰓅",
+      "balanced": "󰾅", 
+      "power-saver": "󰌪"
+    }
+  },
+
+
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+
+
+  "battery": {
+    "states": {
+      "good": 80,
+      "warning": 20,
+      "critical": 10
+    },
+    "interval": 1,
+    "format": "{capacity}% {icon}",
+    "format-full": "{capacity}% {icon}",
+    "format-charging": "󰂅 {capacity}%",
+    "format-charging-warning": "󰢝 {capacity}%",
+    "format-charging-critical": "󰢜 {capacity}%",
+    "format-plugged": "󰂅 {capacity}%",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    // Default tooltip format
+    "tooltip-format": "Battery: {capacity}%\nStatus: Normal\n{timeTo}\nPower: {power}W\nBattery Health: {health}%",
+    
+    // Tooltip format when battery is at warning level (below 30%)
+    "tooltip-format-warning": "Battery: {capacity}%\nStatus: ⚠️ Battery Low!\n{timeTo}\nPower: {power}W\nBattery Health: {health}%",
+    
+    // Tooltip format when battery is at critical level (below 15%)
+    "tooltip-format-critical": "Battery: {capacity}%\nStatus: 🔴 Battery Critical!\n{timeTo}\nPower: {power}W\nBattery Health: {health}%",
+    
+    // Tooltip format when battery is charging
+    "tooltip-format-charging": "Battery: {capacity}%\nStatus: ⚡ Battery Charging\n{timeTo}\nPower: {power}W\nBattery Health: {health}%",
+    
+    // Enable tooltip display
+    "tooltip": true
+  },
+
+
+  // doesn't exist
+  //"battery#bat2": {
+  //    "bat": "BAT2"
+  //},
+
+
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "interval": 1,
+    "format-alt": "{:%a, %b %d, %Y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "format": {
+        "today": "<b><u>{}</u></b>"
+      }
+    }
+  },
+
+  
+  "custom/power": {
+    "format": "",
+    "tooltip": true,
+    "tooltip-format": "power menu",
+    "on-click": "wlogout -b 6"
+  }
+}

@@ -1,0 +1,4 @@
+export P10K_FG='{{colors.on_surface.default.rgb | ansi_fg}}'
+export P10K_BG='{{colors.surface.default.rgb | ansi_bg}}'
+export P10K_ACCENT='{{colors.primary.default.rgb | ansi_fg}}'
+export P10K_ERROR='{{colors.error.default.rgb | ansi_fg}}'
