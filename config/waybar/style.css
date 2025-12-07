@@ -1,245 +1,424 @@
-/*
- _       __               ____              
-| |     / /____ _ __  __ / __ ) ____ _ _____
-| | /| / // __ `// / / // __  |/ __ `// ___/
-| |/ |/ // /_/ // /_/ // /_/ // /_/ // /    
-|__/|__/ \__,_/ \__, //_____/ \__,_//_/     
-               /____/                       
----------------------------------------------------------------
-Written by Samir Ahmed
-
-Repository Link: https://github.com/0xsam1r/dotfiles
----------------------------------------------------------------               
-*/
-
-/*
-rem: used to root things base layouts and spacing 
-em: relevent for the parent element 
-
-
-*/
-
-@import '../../.cache/wallust/waybar-colors.css';
-
-
-/* ============ Animations ============ */
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-/* ============ Base Settings ============ */
 * {
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 14px;
-
+    font-family: "JetBrains Mono Nerd Font";
+    /*font-family: "JetBrainsMono Nerd Font";*/
+    font-weight: bold; 
+    font-size: 15px;
 }
 
-/* ============ Waybar Container ============ */
+#custom-notification {
+  font-family: "JetBrains Mono Nerd Font";
+  font-size: 18px;
+ color: #cccedb;
+ margin-left: -2px;
+ margin-top: -4px ;
+ padding-bottom: 12px;
+}
+
 window#waybar {
-    background-color: @background;
-    color: @foreground;
-     /* Optional subtle line */
+    background: rgba(21, 21, 21, 0.83); 
+/*background: transparent;*/
+  /*  border-radius: 15px; */
+ /*border: 2px solid #124323; */
+border: 0px solid #A1BDCE;
+ /*border: 3px solid rgba(255, 255, 255, 0.3);*/
+ border-radius: 6px;
 }
 
 
-
-
-
-/* ============ Modules Shared Style ============ */
-#workspaces button,
-#privacy-item,
-#cpu,
-#memory,
-#temperature,
-#pulseaudio,
-#privacy,
-#custom-camera,
-#tray,
-#battery,
-#backlight,
-#power-profiles-daemon,
-#clock,
-#custom-power,
-#custom-launcher,
-#hyprland-window,
-#idle_inhibitor {
-    padding: 0 5px;
-    
-    border-radius: 100px;
-}
-
-/* Hover Effects */
-#workspaces button:hover,
-#clock:hover,
-#custom-launcher:hover,
-#idle_inhibitor:hover {
-    margin: 0 7px;
-    border-radius: 0px;
-    background: @cursor;
-    color: @color0;
-    transition:
-        margin 0.6s ease,
-        border-radius 0.5s ease;
-}
-
-/* Power button specific hover */
-#custom-power:hover {
-margin: 0 7px;
-  color: @cursor;
-      transition:
-        margin 0.6s ease,
-        border-radius 0.5s ease;
-}
-
-/* ============ Tooltip ============ */
 tooltip {
-  background-color: @background;
-  border: 0.1rem solid @color7;
-  border-radius: 7px;
-}
-tooltip label {
-  color: @foreground;
-  padding: 3px;
+        background: #1D2021;
+        color: #FBF1C7;
+        font-size: 13px;
+        border-radius: 7px;
+       border: 2px solid #101a24;
+
+
+    }
+#workspaces{
+font-weight: normal;
+background: rgba(23, 23, 23, 0.0);
+    color: #2F302D;
+    box-shadow: none;
+	text-shadow: none;
+    border-radius: 9px;
+    transition: 0.2s ease;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 1px;
+    
 }
 
-/* ============ Workspaces ============ */
+
 #workspaces button {
-  color: @foreground;
+font-weight: normal;
+background: rgba(23, 23, 23, 0.0);
+    color: #B1B2BD;
+    box-shadow: none;
+	text-shadow: none;
+    border-radius: 9px;
+    transition: 0.2s ease;
+    padding-left: 0px;
+    padding-right: 4px;
+    margin-right: -4px;
+    margin-top: -10px;
+ /*   animation: ws_normal 20s ease-in-out 1; */
 }
-#workspaces button label {
-  letter-spacing: 0; /* Keeps icons tight */
-}
+
+
+
 #workspaces button.active {
-  background: @foreground;
-  color: @color0;
-  border-radius: 0;
-}
-#workspaces button.urgent {
-  background-color: @color1;
-}
 
-/* ============ Idle Inhibitor ============ */
-#idle_inhibitor.activated {
-  background: @color2;
-  color: @color15;
+	border: none; 
+  /* background-image: url("/home/anik/Documents/bar1.png");*/
+    color: #cccedb;   
+    font-weight: normal;
+    transition: all 0.3s ease;
+      padding-left: 0px;
+    padding-right: 4px;
+  /*  transition: all 0.4s cubic-bezier(.55,0.68,.48,1.682); */
 }
 
-/* ============ Temperature ============ */
-#temperature.critical {
-  background-color: @color1;
+#workspaces button:hover {
+    background: none;
+    color: #7DAEA3;
+    font-weight: normal;
+    animation: ws_hover 20s ease-in-out 1;
+    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+    border: none;
 }
 
-/* ============ Privacy Indicators ============ */
-#privacy-item.screenshare,
-#custom-camera.active,
-#privacy-item.audio-in {
-  background-color: @cursor;
-  color: @color0;
-  animation: blink 0.5s steps(12) infinite alternate;
+#taskbar button {
+    box-shadow: none;
+	text-shadow: none;
+	font-size: 4px;
+    padding: 0px;
+    border-radius: 9px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
+    color: @wb-color;
+    animation: tb_normal 20s ease-in-out 1;
 }
 
-/* ============ Camera Icon ============ */
-#custom-camera {
-  font-size: 12px;
+#taskbar button.active {
+    background: #C8C8C8;
+    color: #C8C8C8;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    animation: tb_active 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
+    min-height: 3px; 
+    margin-top: 3px;
+    margin-bottom: 3px;
+    border-radius: 3px;
 }
 
-/* ============ System Tray ============ */
-#tray {
-    padding: 0 5px 0 5px;
-    color: @foreground;
+#taskbar button:hover {
+margin-top: 3px;
+    margin-bottom: 3px;
+      margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+    min-height: 3px; 
+    border-radius: 3px;
+    animation: tb_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
 }
 
-
-menu {
-    background-color: @background;
-    border: 0.1rem solid @color7;
-    border-radius: 7px;
-    color: @foreground;
-    padding: 3px;
+#tray menu * {
+    min-height: 16px;
+    font-weight: bold;
+    font-size: 13px;
+    color: #FBF1C7;
 }
 
-#tray menu menuitem:hover {
-  background: @foreground;
-  color: @background;
-	border-radius: 3.5px;
-}
-
-
-/* ============ Power Profiles ============ */
-#power-profiles-daemon {
-  padding-right: 12px;
-  font-size: 20px ;
-}
-
-#power-profiles-daemon.performance {
-  
-  color: @color10;
-}
-
-#power-profiles-daemon.balanced {
-  
-  color: @color15;
-}
-
-#power-profiles-daemon.power-saver {
-  
-  color: @color4;
-}
-
-/* ============ Battery ============ */
-#battery.warning:not(.charging) {
-  color: @color0;
-  background-color: @color15;
-}
-
-#battery.critical {
-  background-color: @color0;
-  color: @color15;
-  animation: blink 0.5s steps(12) infinite alternate;
-}
-
-#battery.charging {
-  background-color: @color0;
-  color: @color15;
+#tray menu separator {
+    min-height: 10px;
 }
 
 
-/* ============ Custom Power Button ============ */
-#custom-power {
-  padding: 0px 17px 0px 0px;
-  color: @color15;
-
-  font-size: 20px;
+#custom-spacer{
+opacity: 0.0;
+padding-top: 3px;
+}
+#custom-smallspacer{
+opacity: 0.0;
 }
 
-/*
-for fonts:
-1. "JetBrainsMono Nerd Font"
-   ▪️ ممتازة للتطبيقات و الواجهات بشكل عام – نظيفة وواضحة
-   ▪️ تثبيت:
-      yay -S ttf-jetbrains-mono-nerd
 
-2. "Iosevka Nerd Font"
-   ▪️ خط برمجي نحيف ومنظم – مثالي للكود وتوزيع النصوص
-   ▪️ تثبيت:
-      yay -S ttf-iosevka-nerd
+#custom-mouse{
+font-size: 14px;
+margin-bottom: 6px;
+background:  #161320;
+}
 
-3. "FiraCode Nerd Font"
-   ▪️ مشهور جدًا بين المبرمجين – يدعم ligatures
-   ▪️ تثبيت:
-      yay -S ttf-firacode-nerd
 
-4. "Mononoki Nerd Font"
-   ▪️ خط مميز ومريح للعين، ويشبه الخطوط التقليدية للكود
-   ▪️ تثبيت:
-      yay -S ttf-mononoki-nerd
+#custom-power{
+    font-size: 15px;
+    color: #FFFFFF;
+    background:  rgba(22, 19, 32, 0.9);
+    margin: 6px 0px 6px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    }
 
-5. "Hack Nerd Font"
- * خط كلاسيكي واضح ممتاز للطرفية وبيئات البرمجة.
- * تثبيت: yay -S ttf-hack-nerd أو تحميل يدوي من Nerd Fonts GitHub.
- * يدعم آلاف الأيقونات (Nerd Font) ويُميز الرموز بدقة (O/0, l/1).
- تثييت: 
-  yay -S ttf-hack-nerd
-  */
+#backlight{
+    color: #cccedb;
+    background: rgba(23, 23, 23, 0.0);
+    font-weight: normal;
+    font-size: 19px;
+    margin: 0px 0px 0px -6px;
+ 
+}
+#bluetooth,
+#custom-cliphist{
+    color: #E6E7E7;
+    background:  #161320;
+    opacity: 1;
+    margin: 4px 0px 4px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+ 
+}
+#battery{
+    font-weight: normal;
+    font-size: 22px;
+    color: #a6d189;
+    background:  rgba(23, 23, 23, 0.0);
+    opacity: 1;
+    margin: 0px 0px 0px 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+ 
+}
+
+#idle_inhibitor{
+color: #24966e;
+background: @bar-bg;
+    opacity: 1;
+    margin: 4px 0px 4px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+
+}
+#clock{
+    color: #cccedb;
+    font-size: 15px;
+    font-weight: 900;
+    font-family: "CaskaydiaCove Nerd Font Mono";
+   /* font-family: "JetBrains Mono Nerd Font";*/
+    background: rgba(23, 23, 23, 0.0);
+    opacity: 1;
+    margin: 3px -13px -3px -13px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 3px;
+    border: none;
+    
+}
+#pulseaudio{
+font-weight: normal;
+font-size: 18px;
+color: #cccedb;
+    background:  rgba(22, 19, 32, 0.0);
+    opacity: 1;
+    margin-left: -0px;
+}
+#cpu{
+font-weight: normal;
+font-size: 22px;
+color: #cccedb;
+}
+#custom-led{
+font-size: 16px;
+font-weight: normal;
+background:  rgba(23, 23, 23, 0.5);
+padding-top: 1px;
+padding-bottom: 12px;
+margin: 7px;
+border-radius: 7px;
+}
+#custom-gpuinfo,
+#custom-keybindhint,
+#language,
+#memory{
+font-weight: normal;
+font-size: 22px;
+color: #cccedb;
+}
+#mpris{
+color: #cccedb;
+animation: repeat;
+	animation-name: blink;
+	animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        color: #262827;
+        
+    }
+}
+#network{
+color: #cccedb;
+font-weight: normal;
+font-size: 19px;
+margin-left: -2px;
+}
+#custom-notifications,
+#custom-spotify,
+#custom-theme,
+#custom-menu{
+color: #cccedb;
+background:  rgba(23, 23, 23, 0.0);
+margin: 0px 0px 0px 0px;
+    padding-left: 1px;
+    padding-right: 1px;
+    opacity: 0.1
+}
+#tray{
+padding: 0px;
+}
+#custom-updates,
+#custom-wallchange,
+#custom-wbar,
+#window{
+font-family: "CaskaydiaCove Nerd Font Mono";
+color: #7DAEA3;
+padding-left: 5px;
+}
+#custom-l_end,
+#custom-r_end,
+#custom-sl_end,
+#custom-sr_end,
+#custom-rl_end,
+#cava,
+#custom-box,
+#upower#headset,
+#upower{
+color: #cccedb;
+/*margin: 8px 3px 3px 8px;*/
+margin: 8px;
+padding-top: 0px;
+padding-bottom: 0px;
+}
+#mpris{
+font-size: 16px;
+font-weight: normal;
+	/*background: #000000;*/
+	/*margin: 4px 4px 4px 4px;*/
+background:  rgba(23, 23, 23, 0.5);
+padding-top: 6px;
+padding-bottom: 6px;
+margin: 7px;
+border-radius: 7px;
+}
+#custom-rr_end {
+font-weight: normal;
+    color: #E8EDF0;
+    background:  rgba(23, 23, 23, 0.0);
+    opacity: 1;
+    margin: 0px 0px 0px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+  ;
+    
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  background: #A1BDCE;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  min-width: 9px;
+  min-height: 90px;
+  margin-bottom: -4px;
+  border-radius: 8px;
+  background: #343434;
+  margin-left: -4px;
+  margin-right: -4px;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+  border-radius: 8px;
+  background-color: #2096C0;
+}
+
+#battery.charging, #battery.plugged {
+	color: #E8EDF0;
+	
+}
+
+
+#battery.critical:not(.charging) {
+    color: red;
+}
+
+
+#taskbar {
+    padding: 0px;
+}
+
+#custom-r_end {
+    border-radius: 0px 7px 7px 0px;
+    margin-right: 1px;
+    padding-right: 3px;
+}
+
+#custom-l_end {
+    border-radius: 7px 0px 0px 7px;
+    margin-left: 1px;
+    padding-left: 3px;
+}
+
+#custom-sr_end {
+    border-radius: 0px;
+    margin-right: 1px;
+    padding-right: 3px;
+}
+
+#custom-sl_end {
+    border-radius: 0px;
+    margin-left: 1px;
+    padding-left: 3px;
+}
+
+#custom-rr_end {
+    border-radius: 0px 7px 7px 0px;
+    margin-right: 1px;
+    padding-right: 3px;
+}
+
+#custom-rl_end {
+    border-radius: 7px 0px 0px 7px;
+    margin-left: 1px;
+    padding-left: 3px;
+}
+
+
+/* Style for launchers */
+
+#custom-expand {
+    min-width: 25px;
+    color: #A1BDCE;
+    font-size: 16px;
+}
+
+#group-minimized {
+    border-left: solid;
+    border-left-width: 0.5;
+}
+

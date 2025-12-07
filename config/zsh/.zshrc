@@ -96,3 +96,6 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Created by `pipx` on 2025-08-19 11:36:16
 export PATH="$PATH:/home/spectre/.local/bin"
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/hyprdots/config/zsh/.p10k.zsh.
+[[ ! -f ~/dotfiles/hyprdots/config/zsh/.p10k.zsh ]] || source ~/dotfiles/hyprdots/config/zsh/.p10k.zsh

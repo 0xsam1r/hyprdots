@@ -119,8 +119,3 @@ This repo is an evolving workspace. I’m always experimenting — breaking thin
 
 If you're diving into Linux customization, tiling WMs, or secure scripting, feel free to explore or fork!
 
-# Comming soon.... ان شاء الله
-
-### [ ] using Walker
-
-### [X] output colors in cashe and import them
