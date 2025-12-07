@@ -3,7 +3,7 @@
 </div>
 
 <div align="center" dir="rtl">
-  <h1><pre>unfortrntly this repo is no longer Maintaniced</h1> </pre>
+  <h1><pre>unfortrntly this repo is no longer Maintenanced</h1> </pre>
 </div>
 
 ## I moved to niri with [niridots](https://github.com/0xsam1r/niridots)
