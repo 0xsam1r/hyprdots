@@ -1,0 +1,229 @@
+/**
+[X] All transpet
+[X] text has the same color 
+[X] no border
+[X] blur in place of background
+ */
+
+/*==================================================
+======== Coder: Samir Ahmed
+======== 
+*/
+@theme "/dev/null"
+* {
+    main-bg:            #151720e6;
+    main-fg:            #cbced3ff;
+    // border
+    main-br:            #98d3eecc;
+    //	extra
+    main-ex:            #95d3afcc;
+    select-bg:          #90ceaaff;
+    select-fg:          #151720ff;
+    separatorcolor:     transparent;
+    border-color:       transparent;
+}
+
+
+
+* {
+	//text-color: @main-fg;
+	font:                        "JetBrains Mono Nerd Font 14";
+	// border: none;
+	// padding:none;
+	// margin: none;
+}
+
+configuration {
+	modi:                       "drun,window,filebrowser,run";
+    show-icons:                 true;
+    display-drun:               "";
+    display-run:                "";
+    display-filebrowser:        "";
+    display-window:             "";
+	drun-display-format:        "{name} {comment}";
+	window-format:              "{r} {c} {t}";
+}
+
+window {
+	// transparency:			"real";
+	height:   			50%;
+    	width:				50%;
+    	location: 			center;
+    	anchor:				center;
+	fullscreen:		     	true;
+	enabled:                     	true;
+    	// border-radius:               	2em;
+    	// cursor:                      	none;
+	text-color: 			@main-fg;
+	background-color: 		transparent;
+}
+mainbox {
+	padding: 3em;
+ 	enabled:                     true;
+    	// spacing:                     0px;
+    	background-color:            inherit;
+    	orientation:                 vertical;
+	text-color:		     @main-fg;
+    	children:                    [ "inputbar", "listview" ];
+}
+/*****----- Inputbar -----*****/
+inputbar {
+    enabled:                     true;
+    spacing:                     1em;
+    padding:                     1em;
+    background-color:            inherit;
+    // background-image:            url("~/Pictures/wallpapers/rocks.jpg", width);
+    text-color:                  inherit;
+    orientation:                 horizontal;
+    children:                    [ "textbox-prompt-colon", "entry", "dummy", "num-filtered-rows", "textbox-num-sep", "num-rows", "mode-switcher" ]; /*widgets in the input bar*/
+}
+textbox-prompt-colon {
+    enabled:                     true;
+    expand:                      false;
+    str:                         "";
+    padding:               	0 0 0 1em; /*padding left*/
+    // border-radius:               100%;
+    background-color:            inherit;
+    text-color:                   @main-ex;
+}
+entry {
+    enabled:                     true;
+    expand:                      false;
+    // width:                       50px;
+    //padding:                     0px 5px;
+    // border-radius:               100%;
+    background-color:            inherit;
+    text-color:                  @main-fg;
+    cursor:                      text;
+    placeholder:                 "Type to Search....";
+    placeholder-color:           @main-ex;
+}
+dummy {
+    expand:                      true;
+    
+    background-color:            transparent;
+    font-color: inherit;
+}
+
+num-filtered-rows {
+    enabled:                     true;
+    expand:                      false;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+textbox-num-sep {
+    enabled:                     true;
+    expand:                      false;
+    str:                         "/";
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+num-rows {
+    enabled:                     true;
+    expand:                      false;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+
+/*****----- Mode Switcher -----*****/
+mode-switcher{
+    enabled:                     true;
+    spacing:                     0px;
+    background-color:            transparent;
+    text-color:                  inherit;
+}
+button {
+    width:                       2em;
+    padding:                     0 7px 0 0;
+    // border-radius:               100%;
+    background-color:            inherit;
+    text-color:                  inherit;
+    //cursor:                      pointer;
+}
+
+button selected {
+    background-color:            @select-bg;
+    text-color:                  @select-fg;
+}
+
+
+/*****----- Listview -----*****/
+listview {
+    enabled:                     true;
+    columns:                     1;
+    // lines:                       8;
+    // cycle:                       true;
+    // dynamic:                     true;
+    scrollbar:                   true;
+    layout:                      vertical;
+    reverse:                     false;
+    // fixed-height:                true;
+    // fixed-columns:               true;
+    
+    spacing:                     0px;
+    margin:                      0px;
+    padding:                     0px;
+    border:                      none;
+    border-radius:               0px;
+    // border-color:                @border-colour;
+    background-color:            transparent;
+    text-color:                  @main-fg;
+    //cursor:                      "default";
+}
+scrollbar {
+    handle-width:                0.1em;
+    handle-color:                @select-bg;
+    border-radius:               0px;
+    background-color:            @select-fg;
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled:                     true;
+    spacing:                     0.5em;
+    padding:                     0.7em;
+    width: 80px;
+    // border-radius:               100%;
+    background-color:            inherit;
+    text-color:                  inherit;
+    // cursor:                      pointer;
+}
+element normal {
+    background-color:            inherit;
+    text-color:                  inherit;
+}
+element.normal.urgent {
+    background-color:            inherit;
+    text-color:                  @select-bg;
+}
+element normal.active {
+    background-color:            @main-ex;
+    text-color:                  @select-fg;
+}
+element selected.normal {
+    background-color:            @select-bg;
+    text-color:                  @select-fg;
+}
+element selected.urgent {
+    background-color:            @select-bg;
+    text-color:                  @select-fg;
+}
+element selected.active {
+    background-color:            @select-bg;
+    text-color:                  @select-fg;
+}
+element-icon {
+    background-color:            transparent;
+    text-color:                  inherit;
+    size:                        1em;
+    cursor:                      inherit;
+}
+element-text {
+    background-color:            transparent;
+    text-color:                  inherit;
+    // cursor:                      inherit;
+    // vertical-align:              0.5;
+    // horizontal-align:            0.0;
+}
+
+

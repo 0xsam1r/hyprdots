@@ -1,0 +1,203 @@
+{
+  "layer": "top",
+  "position": "top",
+  "autohide": true,
+  
+  "autohide-blocked": false,
+  "exclusive": true,
+  "passthrough": false,
+  "gtk-layer-shell": true,
+  "reload_style_on_change": true,
+ 
+
+
+  /* === Modules Order === */
+  "modules-left": [
+    "custom/archicon",
+    "clock",
+    "cpu",
+    "memory",
+    "disk",
+    "temperature"
+  ],
+
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-right": [
+    "tray",
+    "idle_inhibitor",
+    "group/expand-3",
+    "group/power",
+    "hyprland/language"
+  ],
+  /* === Modules Left === */
+  "custom/archicon": {
+    "format": " {}",
+    "exec": "date +'Day %j'", // Julian day counter
+    "on-click": "kitty -e sh -c 'fastfetch; read -p \"Press enter to close...\"'",
+    "tooltip": true,
+    "tooltip-format": "System Info Launcher"
+  },
+
+
+  "clock": {
+    "format": "{:%I:%M %p}",
+    "interval": 1,
+    "format-alt": "{:%a, %b %d, %Y}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "format": {
+        "today": "<b><u>{}</u></b>"
+      }
+    }
+  },
+  
+  "cpu": {
+    "format": "{usage}%  ",
+    "tooltip": true
+  },
+
+
+  "memory": {
+    "interval": 5,
+    "format": "{}%  ",
+    "tooltip": true,
+    "tooltip-format": " RAM: {used} / {total} GB\n💾 Swap: {swapUsed} / {swapTotal} GB"
+  },
+
+  "disk": {
+    "format": "{percentage_free}% ",
+    "tooltip": true,
+    "tooltip-format": "Espacio libre: {free} / {total} ({percentage_free}%)"
+  },
+  "temperature": {
+    "thermal-zone": 1,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp_input",
+    "critical-threshold": 80,
+    "format-critical": "{temperatureC}°C  ",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", "", "", ""],
+    "tooltip": true,
+    "on-double-click": "kitty -e btop"
+  },
+
+
+  /* === Modules Center === */
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "default": "-",
+      "active": "ᯓ★"
+    },
+    "persistent-workspaces": {
+      // "*": 2
+    },
+    "disable-scroll": true,
+    "all-outputs": true,
+    "show-special": true
+  },
+
+  /* === Modules Right === */
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "all-outputs": false,
+    "active-first": false,
+    "tooltip-format": "{name}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      
+    ]
+  },
+  "tray": {
+  	"spacing": 10
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "pulseaudio/slider": {
+    "format": "{volume}%",
+    "format-muted": " MUTE",
+    "step": 5,
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "scroll-step": 0.5, // can be a float
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [" ", " ", " " ]
+    },
+    "on-click-right": "pwvucontrol"
+  },
+
+      "group/expand-3": {
+     "orientation": "horizontal",
+     "drawer": {
+         "transition-duration": 600,
+         "children-class": "not-power",
+       "transition-to-left": true,
+         "hover-to-reveal": true
+     },
+     "modules": ["pulseaudio","pulseaudio/slider"]
+   },
+
+   "upower": {
+     "icon-size": 20,
+      "format": "",
+     "format-alt": "{}<span color='orange'>[{time}]</span>",
+     "tooltip": true,
+     "tooltip-spacing": 20,
+      "on-click-right": "pkill waybar & hyprctl dispatch exec waybar"
+},
+
+"upower#headset": {
+"format": " {percentage}",
+"native-path": "/org/freedesktop/UPower/devices/headset_dev_A6_98_9A_0D_D3_49",
+"show-icon": false,
+"tooltip": false,
+},
+
+"group/power": {
+     "orientation": "horizontal",
+     "drawer": {
+         "transition-duration": 600,
+         "children-class": "not-power",
+       "transition-to-left": true,
+         "click-to-reveal": true
+     },
+     "modules": ["upower","upower/headset"]
+   },
+
+  "network": {
+    "format": "{ifname}",
+    "format-ethernet": "{ifname} 󰈀",
+    "format-disconnected": " ",
+    "tooltip-format": " {ifname} via {gwaddr}",
+    "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50
+  },
+  "hyprland/language": {
+    "format": "{} ",
+    "on-click": "niri msg action switch-layout next",
+    "format-ara": "Ara",
+    "format-en": "ENG"
+  }
+}

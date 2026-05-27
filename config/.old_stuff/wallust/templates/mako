@@ -1,0 +1,27 @@
+layer=overlay
+background-color={{background}}
+border-color={{color2}}
+margin=12
+padding=12
+border-size=2
+border-radius=8
+default-timeout=5000
+ignore-timeout=1
+font=Hack Nerd Font 11
+text-color={{foreground}}
+outer-margin=0,5,15,0
+anchor=top-right
+
+[urgency=high]
+border-color={{color4}}
+default-timeout=0
+
+[urgency=low]
+border-color={{color0}}
+
+[category=mpd]
+default-timeout=2000
+group-by=category
+
+[app-name="Steam"]
+invisible=1

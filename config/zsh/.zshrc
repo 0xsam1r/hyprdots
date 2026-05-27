@@ -72,7 +72,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Aliases
-# Aliases
 
 alias v='vim'
 alias sucman='sudo pacman'
@@ -90,6 +89,7 @@ alias start= 'hyprctl dispatch exec'
 # Shell integrations
 eval "$(fzf --zsh)" # ctrl + r open a search in history using fzf
 eval "$(zoxide init --cmd cd zsh)"
+eval "$(fnm env --use-on-cd --shell zsh)" # auto completions and auto change version on cd 
 
 # To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
@@ -97,5 +97,3 @@ eval "$(zoxide init --cmd cd zsh)"
 # Created by `pipx` on 2025-08-19 11:36:16
 export PATH="$PATH:/home/spectre/.local/bin"
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/hyprdots/config/zsh/.p10k.zsh.
-[[ ! -f ~/dotfiles/hyprdots/config/zsh/.p10k.zsh ]] || source ~/dotfiles/hyprdots/config/zsh/.p10k.zsh

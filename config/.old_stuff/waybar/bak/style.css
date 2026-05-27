@@ -1,0 +1,170 @@
+/* -- Global rules -- */
+* {
+  border: none;
+  font-family: "JetbrainsMono Nerd Font";
+  font-size: 14px;
+  
+}
+
+window#waybar {
+  background: rgba(34, 36, 54, 0.6);
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* - Genera rules for visible modules -- */
+#custom-archicon,
+#clock,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#idle_inhibitor,
+#pulseaudio,
+#pulseaudio-slider,
+#upower,
+#language{
+  color: #161320;
+
+  padding: 0 0.7rem;
+  transition: none;
+}
+
+/* Separation to the left */
+#custom-archicon,
+#cpu,
+#idle_inhibitor {
+  margin-left: 5px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+/* Separation to the rigth */
+#clock,
+#temperature,
+#language {
+  border-top-right-radius: 0.7rem;
+  border-bottom-right-radius: 0.7rem;
+}
+
+/* -- Specific styles -- */
+
+/* Modules left */
+#custom-archicon {
+  color: #89B4FA;
+  background: #161320;
+}
+
+#clock {
+  background: #ABE9B3;
+}
+
+#cpu {
+  background: #96CDFB;
+}
+
+#memory {
+  background: #DDB6F2;
+}
+
+#disk {
+  background: #F5C2E7;
+}
+
+#temperature {
+  background: #F8BD96;
+}
+
+/* Modules center */
+#workspaces {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin: 0 5px;
+  padding: 0px 6px;
+}
+
+#workspaces button {
+  color: #B5E8E0;
+  background: transparent;
+  padding: 4px 4px;
+  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+}
+
+#workspaces button.occupied {
+  color: #A6E3A1;
+}
+
+#workspaces button.active {
+  color: #89B4FA;
+  text-shadow: 0 0 4px #ABE9B3;
+}
+
+#workspaces button:hover {
+  color: #89B4FA;
+}
+
+#workspaces button.active:hover {}
+
+/* Modules right */
+#tray {
+  background: transparent;
+  border-radius: 10px;
+  padding: 0px 5px;
+  margin: 0 5px;
+}
+
+#tray button {
+  padding: 0px 5px;
+  margin: 0px 3px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+#tray button.active {
+  background: rgba(34, 36, 54, 0.5);
+}
+
+#tray button:hover {
+  background: rgba(34, 36, 54, 0.5);
+}
+
+#idle_inhibitor {
+  background: #B5E8E0;
+  padding-right: 1rem;
+}
+
+#pulseaudio {
+  min-width: 5rem;
+  color: #1A1826;
+  background: #F5E0DC;
+}
+
+#pulseaudio-slider {
+  color: #1A1826;
+  background: #E8A2AF;
+  min-width: 5rem;
+  min-height: 0.3rem;
+}
+
+#pulseaudio-slider slider {}
+
+
+#upower {
+  background: #CBA6F7;
+  padding-right: 13px;
+}
+
+#language {
+  background: #A6E3A1;
+  /*padding-right: 15px;*/
+}
+
+/* === Optional animation === */
+@keyframes blink {
+  to {
+    background-color: #BF616A;
+    color: #B5E8E0;
+  }
+}

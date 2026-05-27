@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+dotfiles="$HOME/niridots/config"
+config="$HOME/.config"
+backup="$config/$(date +%Y-%m-%d_%H-%M-%S).bac"
+
+# echo "TODO......."
+# =====================================
+# TODO
+# ====================================
+# [X] Link configrations
+# 	[X] bachup any old configraions
+# [] install needed fonts
+# [] install icons
+# [] get wallpapers
+# =====================================
+echo "==== > configrations ============================================================="
+for dir in "$dotfiles"/*; do
+	name=$(basename $dir)
+	target="$config/$name"
+
+	if [[ -L $target ]]; then
+		echo "> $target  ====> link [delete]"
+		rm $target
+		echo "linking..... $dir -> $target"
+	elif [[ -e $target ]]; then # no need to check file {format: path/dir}
+		echo "> $target  ====> directory [backup]"
+		mkdir -p $backup
+		mv $target $backup
+	fi
+
+	echo "linking..... $dir -> $target"
+	ln -s $dir $target
+done
+
+echo "> link env for zsh in $HOME"
+rm -rf ~/.zshenv
+ln -s "$dotfiles/.zshenv" ~/.zshenv
+
+[[ -e $backup ]] && echo "> backup in $backup"
+
+echo "==== Done! ========================================================================"

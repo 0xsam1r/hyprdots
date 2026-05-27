@@ -1,0 +1,112 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    "logo": {
+        "type": "iterm",
+        "source": "./image.jpg",
+        "width": 30,
+        "height": 15,
+        "padding": {
+            "top": 2,
+            "left": 2
+        }
+    },
+    "display": {
+        "separator": " ",
+        "color": {
+            "keys": "magenta"
+        }
+    },
+    "modules": [
+        {
+            "type": "custom",
+            "format": "{#red}┌─────────────────────────── [ MAGI SYSTEM ] ───────────────────────────┐"
+        },
+        {
+            "type": "custom",
+            "format": "{#red}│  {#red}╒╦╦╕{#yellow}─{#red}╓╥╥╖{#yellow}───{#red}═      {#white}-Operator has rised-         {#red}💥   │"
+        },
+        {
+            "type": "custom",
+            "format": "{#red}└───────────────────────────────────────────────────────────────────────┘"
+        },
+        {
+            "type": "host",
+            "key": "{#red}  DEVICE     {#white}» "
+        },
+        {
+            "type": "os",
+            "key": "{#red}  OS         {#white}» "
+        },
+        {
+            "type": "kernel",
+            "key": "{#red}  KERNEL     {#white}» ",
+            "format": "{2}"
+        },
+        {
+            "type": "uptime",
+            "key": "{#red}  UPTIME     {#white}» "
+        },
+        {
+            "type": "custom",
+            "format": "{#blue}── NEURAL LINK (NETWORK) ───────────────────────────────────────────────"
+        },
+        {
+            "type": "localip",
+            "key": "{#blue}  IP ADDR    {#white}» ",
+            "format": "{ipv4}/24"
+        },
+        {
+            "type": "command",
+            "key": "{#blue}  NET TYPE   {#white}» ",
+            "text": "nmcli -t -f TYPE,STATE dev | grep connected | cut -d: -f1 | head -n1"
+        },
+        {
+            "type": "custom",
+            "format": "{#blue}── CORE SPECS ──────────────────────────────────────────────────────────"
+        },
+        {
+            "type": "cpu",
+            "key": "{#blue}  CPU        {#white}» ",
+            "format": "{1} @ {7}" 
+        },
+        {
+            "type": "gpu",
+            "key": "{#blue}  GPU        {#white}» ",
+            "format": "{1} {2}"
+        },
+        {
+            "type": "memory",
+            "key": "{#blue}  RAM (LCL)  {#white}» ",
+            "format": "{used} / {total} ({#green}{percentage}{#blue})"
+        },
+        {
+            "type": "disk",
+            "folders": "/",
+            "key": "{#blue}  DISK (EP)  {#white}» ",
+            "format": "{size-used} / {size-total} ({#green}{size-percentage}{#blue})"
+        },
+        {
+            "type": "disk",
+            "folders": "/home",
+            "key": "{#blue}  DISK (EP)  {#white}» ",
+            "format": "{size-used} / {size-total} ({#green}{size-percentage}{#blue})"
+        },
+        {
+            "type": "battery",
+            "key": "{#blue}  BATTERY    {#white}» ",
+            "format": "{#green}{capacity}%{#white}, {status}, {health}"
+        },
+        {
+            "type": "custom",
+            "format": "{#blue}── MAGI ANALYSIS ───────────────────────────────────────────────────────"
+        },
+        {
+            "type": "custom",
+            "format": " {#magenta}綾波レイ: {#white}\"I am not a doll. I am me.\""
+        },
+        {
+            "type": "custom",
+            "format": " {#green}PILOT READY FOR DEPLOYMENT. NO ERRORS DETECTED."
+        }
+    ]
+}

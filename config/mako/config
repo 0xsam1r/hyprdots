@@ -1,0 +1,21 @@
+layer=overlay
+anchor=top-right
+font=DepartureMono Nerd Font 12
+margin=12
+padding=15
+width=400
+border-size=1
+border-radius=12,2,12,2
+
+background-color=#060d0dbb
+text-color=#00ffd5ff
+border-color=#00ffd544
+progress-color=over #00ffd5
+
+default-timeout=5000
+format= %s\n╰─ %b
+
+[urgency=high]
+border-color=#ff0055aa
+background-color=#120509dd
+format= %s\n╰─ %b

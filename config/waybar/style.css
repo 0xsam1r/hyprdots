@@ -1,424 +1,371 @@
+/* =====================================================
+   GLOBAL DEFAULTS
+===================================================== */
 * {
-    font-family: "JetBrains Mono Nerd Font";
-    /*font-family: "JetBrainsMono Nerd Font";*/
-    font-weight: bold; 
-    font-size: 15px;
+  background-color: #161a22;
+  color: #e6edf7;
+
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+
+  font-family: "GeistMono Nerd Font Propo", "Symbols Nerd Font", sans-serif;
+  font-size: 14px;
 }
 
-#custom-notification {
-  font-family: "JetBrains Mono Nerd Font";
-  font-size: 18px;
- color: #cccedb;
- margin-left: -2px;
- margin-top: -4px ;
- padding-bottom: 12px;
+#waybar {
+  transition: background-color 0.3s ease;
 }
 
-window#waybar {
-    background: rgba(21, 21, 21, 0.83); 
-/*background: transparent;*/
-  /*  border-radius: 15px; */
- /*border: 2px solid #124323; */
-border: 0px solid #A1BDCE;
- /*border: 3px solid rgba(255, 255, 255, 0.3);*/
- border-radius: 6px;
+/* =====================================================
+   MODULE CONTAINERS
+===================================================== */
+.modules-left {
+  margin-left: 0px;
 }
 
-
-tooltip {
-        background: #1D2021;
-        color: #FBF1C7;
-        font-size: 13px;
-        border-radius: 7px;
-       border: 2px solid #101a24;
-
-
-    }
-#workspaces{
-font-weight: normal;
-background: rgba(23, 23, 23, 0.0);
-    color: #2F302D;
-    box-shadow: none;
-	text-shadow: none;
-    border-radius: 9px;
-    transition: 0.2s ease;
-    padding-left: 4px;
-    padding-right: 4px;
-    padding-top: 1px;
-    
+.modules-center {
+  margin: 0 6px;
 }
 
+.modules-right {
+  margin-right: 0px;
+}
 
+/* =====================================================
+   WORKSPACES (HARD GTK RESET – NO SIDE LINES)
+===================================================== */
 #workspaces button {
-font-weight: normal;
-background: rgba(23, 23, 23, 0.0);
-    color: #B1B2BD;
-    box-shadow: none;
-	text-shadow: none;
-    border-radius: 9px;
-    transition: 0.2s ease;
-    padding-left: 0px;
-    padding-right: 4px;
-    margin-right: -4px;
-    margin-top: -10px;
- /*   animation: ws_normal 20s ease-in-out 1; */
-}
+  all: unset;
+  /* ⬅ nuclear reset (GTK-safe) */
 
+  background: transparent;
+  color: #7d8596;
 
+  padding: 0 3px;
+  margin: 0 2px;
 
-#workspaces button.active {
+  border: none;
+  border-left: none;
+  border-right: none;
 
-	border: none; 
-  /* background-image: url("/home/anik/Documents/bar1.png");*/
-    color: #cccedb;   
-    font-weight: normal;
-    transition: all 0.3s ease;
-      padding-left: 0px;
-    padding-right: 4px;
-  /*  transition: all 0.4s cubic-bezier(.55,0.68,.48,1.682); */
-}
-
-#workspaces button:hover {
-    background: none;
-    color: #7DAEA3;
-    font-weight: normal;
-    animation: ws_hover 20s ease-in-out 1;
-    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
-    border: none;
-}
-
-#taskbar button {
-    box-shadow: none;
-	text-shadow: none;
-	font-size: 4px;
-    padding: 0px;
-    border-radius: 9px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    margin-left: 3px;
-    margin-right: 3px;
-    color: @wb-color;
-    animation: tb_normal 20s ease-in-out 1;
-}
-
-#taskbar button.active {
-    background: #C8C8C8;
-    color: #C8C8C8;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 0px;
-    padding-right: 0px;
-    animation: tb_active 20s ease-in-out 1;
-    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
-    min-height: 3px; 
-    margin-top: 3px;
-    margin-bottom: 3px;
-    border-radius: 3px;
-}
-
-#taskbar button:hover {
-margin-top: 3px;
-    margin-bottom: 3px;
-      margin-left: 10px;
-    margin-right: 10px;
-    padding-left: 0px;
-    padding-right: 0px;
-    min-height: 3px; 
-    border-radius: 3px;
-    animation: tb_hover 20s ease-in-out 1;
-    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
-}
-
-#tray menu * {
-    min-height: 16px;
-    font-weight: bold;
-    font-size: 13px;
-    color: #FBF1C7;
-}
-
-#tray menu separator {
-    min-height: 10px;
-}
-
-
-#custom-spacer{
-opacity: 0.0;
-padding-top: 3px;
-}
-#custom-smallspacer{
-opacity: 0.0;
-}
-
-
-#custom-mouse{
-font-size: 14px;
-margin-bottom: 6px;
-background:  #161320;
-}
-
-
-#custom-power{
-    font-size: 15px;
-    color: #FFFFFF;
-    background:  rgba(22, 19, 32, 0.9);
-    margin: 6px 0px 6px 0px;
-    padding-left: 4px;
-    padding-right: 4px;
-    }
-
-#backlight{
-    color: #cccedb;
-    background: rgba(23, 23, 23, 0.0);
-    font-weight: normal;
-    font-size: 19px;
-    margin: 0px 0px 0px -6px;
- 
-}
-#bluetooth,
-#custom-cliphist{
-    color: #E6E7E7;
-    background:  #161320;
-    opacity: 1;
-    margin: 4px 0px 4px 0px;
-    padding-left: 4px;
-    padding-right: 4px;
- 
-}
-#battery{
-    font-weight: normal;
-    font-size: 22px;
-    color: #a6d189;
-    background:  rgba(23, 23, 23, 0.0);
-    opacity: 1;
-    margin: 0px 0px 0px 0px;
-    padding-left: 0px;
-    padding-right: 0px;
- 
-}
-
-#idle_inhibitor{
-color: #24966e;
-background: @bar-bg;
-    opacity: 1;
-    margin: 4px 0px 4px 0px;
-    padding-left: 4px;
-    padding-right: 4px;
-
-}
-#clock{
-    color: #cccedb;
-    font-size: 15px;
-    font-weight: 900;
-    font-family: "CaskaydiaCove Nerd Font Mono";
-   /* font-family: "JetBrains Mono Nerd Font";*/
-    background: rgba(23, 23, 23, 0.0);
-    opacity: 1;
-    margin: 3px -13px -3px -13px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 3px;
-    border: none;
-    
-}
-#pulseaudio{
-font-weight: normal;
-font-size: 18px;
-color: #cccedb;
-    background:  rgba(22, 19, 32, 0.0);
-    opacity: 1;
-    margin-left: -0px;
-}
-#cpu{
-font-weight: normal;
-font-size: 22px;
-color: #cccedb;
-}
-#custom-led{
-font-size: 16px;
-font-weight: normal;
-background:  rgba(23, 23, 23, 0.5);
-padding-top: 1px;
-padding-bottom: 12px;
-margin: 7px;
-border-radius: 7px;
-}
-#custom-gpuinfo,
-#custom-keybindhint,
-#language,
-#memory{
-font-weight: normal;
-font-size: 22px;
-color: #cccedb;
-}
-#mpris{
-color: #cccedb;
-animation: repeat;
-	animation-name: blink;
-	animation-duration: 3s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@keyframes blink {
-    to {
-        color: #262827;
-        
-    }
-}
-#network{
-color: #cccedb;
-font-weight: normal;
-font-size: 19px;
-margin-left: -2px;
-}
-#custom-notifications,
-#custom-spotify,
-#custom-theme,
-#custom-menu{
-color: #cccedb;
-background:  rgba(23, 23, 23, 0.0);
-margin: 0px 0px 0px 0px;
-    padding-left: 1px;
-    padding-right: 1px;
-    opacity: 0.1
-}
-#tray{
-padding: 0px;
-}
-#custom-updates,
-#custom-wallchange,
-#custom-wbar,
-#window{
-font-family: "CaskaydiaCove Nerd Font Mono";
-color: #7DAEA3;
-padding-left: 5px;
-}
-#custom-l_end,
-#custom-r_end,
-#custom-sl_end,
-#custom-sr_end,
-#custom-rl_end,
-#cava,
-#custom-box,
-#upower#headset,
-#upower{
-color: #cccedb;
-/*margin: 8px 3px 3px 8px;*/
-margin: 8px;
-padding-top: 0px;
-padding-bottom: 0px;
-}
-#mpris{
-font-size: 16px;
-font-weight: normal;
-	/*background: #000000;*/
-	/*margin: 4px 4px 4px 4px;*/
-background:  rgba(23, 23, 23, 0.5);
-padding-top: 6px;
-padding-bottom: 6px;
-margin: 7px;
-border-radius: 7px;
-}
-#custom-rr_end {
-font-weight: normal;
-    color: #E8EDF0;
-    background:  rgba(23, 23, 23, 0.0);
-    opacity: 1;
-    margin: 0px 0px 0px 0px;
-    padding-left: 4px;
-    padding-right: 4px;
-  ;
-    
-}
-
-#backlight-slider slider,
-#pulseaudio-slider slider {
-  background: #A1BDCE;
-  background-color: transparent;
+  outline: none;
   box-shadow: none;
+  background-image: none;
+
+  transition: color 0.2s ease;
 }
 
-#backlight-slider trough,
-#pulseaudio-slider trough {
-  min-width: 9px;
-  min-height: 90px;
-  margin-bottom: -4px;
-  border-radius: 8px;
-  background: #343434;
-  margin-left: -4px;
-  margin-right: -4px;
+/* Hover */
+#workspaces button:hover {
+  color: #c9d1d9;
+
+  border: none;
+  border-left: none;
+  border-right: none;
+
+  outline: none;
+  box-shadow: none;
+  background-image: none;
 }
 
-#backlight-slider highlight,
-#pulseaudio-slider highlight {
-  border-radius: 8px;
-  background-color: #2096C0;
+/* Focus (keyboard / mouse) */
+#workspaces button:focus,
+#workspaces button:focus-visible {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-image: none;
 }
 
-#battery.charging, #battery.plugged {
-	color: #E8EDF0;
-	
+/* Active workspace */
+#workspaces button.active {
+  color: #38bdf8;
+
+  box-shadow: none;
+  background-image: none;
+
+  text-shadow: 0 0 5px rgba(56, 189, 248, 0.6);
 }
 
+/* Empty workspace */
+#workspaces button.empty {
+  opacity: 0.88;
 
-#battery.critical:not(.charging) {
-    color: red;
-}
-
-
-#taskbar {
-    padding: 0px;
-}
-
-#custom-r_end {
-    border-radius: 0px 7px 7px 0px;
-    margin-right: 1px;
-    padding-right: 3px;
-}
-
-#custom-l_end {
-    border-radius: 7px 0px 0px 7px;
-    margin-left: 1px;
-    padding-left: 3px;
-}
-
-#custom-sr_end {
-    border-radius: 0px;
-    margin-right: 1px;
-    padding-right: 3px;
-}
-
-#custom-sl_end {
-    border-radius: 0px;
-    margin-left: 1px;
-    padding-left: 3px;
-}
-
-#custom-rr_end {
-    border-radius: 0px 7px 7px 0px;
-    margin-right: 1px;
-    padding-right: 3px;
-}
-
-#custom-rl_end {
-    border-radius: 7px 0px 0px 7px;
-    margin-left: 1px;
-    padding-left: 3px;
 }
 
 
-/* Style for launchers */
+/* =====================================================
+   ARCH KERNEL (REFERENCE STYLE)
+===================================================== */
+#custom-kernel {
+  color: #1793d1;
+  padding: 0 10px;
+  min-width: 56px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
 
-#custom-expand {
-    min-width: 25px;
-    color: #A1BDCE;
-    font-size: 16px;
+  text-shadow: 0 0 6px rgba(23, 147, 209, 0.6);
+  transition: all 0.2s ease;
 }
 
-#group-minimized {
-    border-left: solid;
-    border-left-width: 0.5;
+#custom-kernel:hover {
+  background-color: rgba(23, 147, 209, 0.12);
+  text-shadow: 0 0 9px rgba(23, 147, 209, 0.9);
 }
 
+/* =====================================================
+   RIGHT SIDE – BASE LAYOUT
+===================================================== */
+#bluetooth,
+#network,
+#pulseaudio,
+#cpu,
+#battery,
+#memory,
+#custom-update,
+#tray,
+#language {
+  margin: 0 2px;
+  padding: 0 1px;
+  min-width: 12px;
+}
+
+/* subtle separators */
+#network,
+#pulseaudio,
+#cpu,
+#memory,
+#battery,
+#language {
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* tray icons */
+#tray>.tray-item {
+  margin: 0 4px;
+}
+
+/* =====================================================
+   KERNEL-LIKE PILL STYLE (SHARED)
+===================================================== */
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#language {
+  padding: 0 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* =====================================================
+   CPU & Memory (KERNEL-STYLE)
+===================================================== */
+#cpu {
+  color: #93c5fd;
+  padding: 0 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+#cpu:hover {
+  background-color: rgba(147, 197, 253, 0.12);
+  text-shadow: 0 0 8px rgba(147, 197, 253, 0.8);
+}
+
+#memory {
+  color: #67e8f9;
+  ;
+  padding: 0 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+
+/* =====================================================
+   BATTERY (KERNEL-STYLE)
+===================================================== */
+#battery {
+  color: #86efac;
+  font-size: 14px;
+}
+
+#battery:hover {
+  background-color: rgba(134, 239, 172, 0.12);
+  text-shadow: 0 0 8px rgba(134, 239, 172, 0.8);
+}
+
+#battery.warning {
+  color: #fde68a;
+}
+
+#battery.warning:hover {
+  background-color: rgba(253, 230, 138, 0.14);
+}
+
+#battery.critical {
+  color: #fb7185;
+}
+
+#battery.critical:hover {
+  background-color: rgba(251, 113, 133, 0.16);
+  text-shadow: 0 0 10px rgba(251, 113, 133, 0.9);
+}
+
+/* =====================================================
+   NETWORK (KERNEL-STYLE)
+===================================================== */
+#network {
+  color: #38bdf8;
+}
+
+#network:hover {
+  background-color: rgba(103, 232, 249, 0.12);
+  text-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+}
+
+/* =====================================================
+   BLUETOOTH (KERNEL-STYLE)
+===================================================== */
+#bluetooth {
+  color: #f97316;
+}
+
+#bluetooth:hover {
+  background-color: rgba(165, 180, 252, 0.12);
+  text-shadow: 0 0 8px rgba(165, 180, 252, 0.8);
+}
+
+/* =====================================================
+   AUDIO (KERNEL-STYLE)
+===================================================== */
+#pulseaudio {
+  color: #93c5fd;
+}
+
+#pulseaudio:hover {
+  background-color: rgba(147, 197, 253, 0.12);
+  text-shadow: 0 0 8px rgba(147, 197, 253, 0.8);
+}
+
+/* =====================================================
+   UPDATES
+===================================================== */
+#custom-update {
+  color: #fde68a;
+  font-size: 10px;
+}
+
+#custom-update:hover {
+  text-shadow: 0 0 6px rgba(253, 230, 138, 0.8);
+}
+
+window.nowplaying-art {
+  background-color: #0f141b;
+  border-radius: 10px;
+  padding: 6px;
+}
+
+
+/* =====================================================
+   CLOCK (UNDERLINE STYLE)
+===================================================== */
+#clock {
+  color: #1793d1;
+  padding: 0 10px 1px 10px;
+  /* room for underline */
+  letter-spacing: 0.5px;
+
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Hover underline */
+#clock:hover {
+  border-bottom-color: #1793d1;
+}
+
+/* Active (after click / alt format) */
+#clock:active {
+  border-bottom-color: #38bdf8;
+  /* Arch cyan */
+}
+
+/* =====================================================
+   APP LAUNCHERS (BRAVE + VS CODE)
+===================================================== */
+/* =====================================================
+   SCREEN RECORDING
+===================================================== */
+#custom-screenrecording-indicator.active {
+  color: #fb7185;
+  text-shadow: 0 0 10px rgba(251, 113, 133, 0.9);
+}
+
+/* =====================================================
+   Language
+===================================================== */
+#language {
+  color: #b0e0e6;
+}
+
+/* =====================================================
+   NOW PLAYING (CLASSIC STATUS STYLE)
+===================================================== */
+#custom-nowplaying {
+  color: #c9d1d9;
+  padding: 0 10px;
+  margin-right: 6px;
+
+  font-style: italic;
+  letter-spacing: 0.3px;
+
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+#custom-nowplaying:hover {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+}
+
+
+/* =====================================================
+   TOOLTIP STYLING (GTK SAFE)
+===================================================== */
+tooltip {
+  background-color: #0f141b;
+  color: #e6edf7;
+
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+
+  padding: 6px 8px;
+  font-family: "DepartureMono Nerd Font", monospace;
+  font-size: 11px;
+
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+tooltip label {
+  color: #e6edf7;
+}
+
+tooltip label strong {
+  color: #38bdf8;
+}
+
+tooltip.warning {
+  border-color: #fde047;
+}
+
+tooltip.critical {
+  border-color: #fb7185;
+}

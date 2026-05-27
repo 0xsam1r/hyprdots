@@ -1,0 +1,6 @@
+# all from hyprland wiki  https://wiki.hypr.land/Configuring/Uncommon-tips--tricks/#alt-tab-behaviour
+
+# Dependencies 
+sudo pacman -S foot fzf grim chafa jq
+
+
