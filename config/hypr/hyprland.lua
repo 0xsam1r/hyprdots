@@ -94,8 +94,8 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
 hl.config({
     general = {
-        gaps_in          = 2,
-        gaps_out         = 5,
+        gaps_in          = 15,
+        gaps_out         = 25,
         border_size      = 2,
 
         resize_on_border = false,
@@ -185,6 +185,7 @@ hl.config({
 hl.config({
     scrolling = {
         fullscreen_on_one_column = true,
+        explicit_column_widths = "0.5, 0.75, 1.0"
     },
 })
 
@@ -264,7 +265,6 @@ local mainMod   =   "SUPER"
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + DELETE", hl.dsp.exit())
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + TAB", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(scripts .. "/change-wallpaper/change-wallpaper.sh"))
@@ -272,6 +272,7 @@ hl.bind(mainMod .. " + F1", hl.dsp.exec_cmd(scripts .. "/gamemode.sh"))
 hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd(notes))
 hl.bind("ALT + TAB", hl.dsp.exec_cmd(windowSwitcher))
 hl.bind("ALT + SHIFT + space", hl.dsp.exec_cmd(scripts .. "/toggle-kb.sh"))
+hl.bind("F11", hl.dsp.window.fullscreen())
 
 -- Clipboard
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
@@ -281,6 +282,12 @@ hl.bind(mainMod .. " + SHIFT + Delete", hl.dsp.exec_cmd("clipman clear"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("wlogout"))
 hl.bind("CTRL + Escape", hl.dsp.exec_cmd("killall waybar || waybar"))
+
+-- scrollling
+hl.bind(mainMod .. " + J", hl.dsp.layout("consume_or_expel next"))
+hl.bind(mainMod .. " + F", hl.dsp.layout("colresize +conf"))
+hl.bind(mainMod .. " + period", hl.dsp.layout("swapcol r"))
+hl.bind(mainMod .. " + comma", hl.dsp.layout("swapcol l"))
 
 -- Focus
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
