@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dotfiles="$HOME/niridots/config"
+dotfiles="$HOME/hyprdots/config"
 config="$HOME/.config"
 backup="$config/$(date +%Y-%m-%d_%H-%M-%S).bac"
 
