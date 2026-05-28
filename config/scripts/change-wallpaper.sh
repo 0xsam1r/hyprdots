@@ -16,42 +16,10 @@ set_wallpaper() {
     [[ ! -f "$IMG" ]] && echo "Wallpaper Change Error" "File not found: $IMG" && notify-send "Wallpaper Error" "File not found: $IMG" && exit 1
 
     # command to change wallpaper
-    swww img "$IMG" \
+    awww img "$IMG" \
         --transition-type random
 
-    # making theme
-    # Path for the small temporary version
-SMALL_IMG="${HOME}/.cache/wallust/small_wallpaper.jpg"
-
-# Create the cache directory if it doesn't exist
-mkdir -p "${HOME}/.cache/wallust"
-
-# Resize the original image to a small size and save it (Best Practice)
-magick "$IMG" -resize 256x "$SMALL_IMG"
-
-# Now run wallust on the SMALL image
-if wallust run "$SMALL_IMG"; then
-    echo "Successfully generated with kmeans backend"
-    backend="kmeans"
-elif wallust run "$SMALL_IMG" --backend wal ; then
-    echo "kmeans backend failed, trying wal as fallback..."
-    sleep 1
-    backend="wal"
-else
-    echo "try pywal as last try"
-    wallust pywal -i "$SMALL_IMG"
-    backend="pywal"
-fi
-
-# Optional: Delete the small file after if you want to save space
-# rm -f "$SMALL_IMG"
- 
-    ~/.config/scripts/refresh.sh
-    notify-send --icon "$IMG"  " Wallpaper Changed 🎨" "Applied: $(basename "$IMG") \n $backend"
-    #======================================
-
-    #=======================================
-    # make static image for hyp
+    notify-send --icon "$IMG"  " Wallpaper Changed 🎨" "Applied: $(basename "$IMG")"
 }
 
 
