@@ -4,7 +4,7 @@
 	"position": "top",
 	"spacing": 0,
 	"height": 26,
-	"modules-left": ["custom/kernel","custom/operator" ,"niri/workspaces", "network", "bluetooth"],
+	"modules-left": ["custom/kernel","custom/operator" ,"hyprland/workspaces", "network", "bluetooth"],
 	"modules-center": ["clock"],
 	"modules-right": [
 		"tray",
@@ -12,21 +12,21 @@
 		"cpu",
 		"memory",
 		"battery",
-		"niri/language"
+		"hyprland/language"
 
 	],
-	"niri/workspaces": {
+	"hyprland/workspaces": {
 		"on-click": "activate",
 		"format": "{icon}",
 		"format-icons": {
-			"default": "🗺",
-			"active": "💥"
+			"default": "",
+			"active": ""
 		}
 	},
 
 
 	"memory": {
-		"interval": 3,
+		"interval": 5,
 		/*{percentage}%*/
 		"format": " {icon}",
 		"format-icons": [
@@ -45,7 +45,7 @@
 	},
 
 	"cpu": {
-		"interval": 3,
+		"interval": 2,
 		"format": " {icon}",
 		"format-icons": [
 			"░░░░░░░░░░",
@@ -74,12 +74,11 @@
 		"format-disconnected": "󰤮 Offline",
 		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
 		"tooltip-format-ethernet": "Wired\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
-		"interval": 3
+		"interval": 5
 	},
 	"battery": {
-		"format": "{icon}",
+		"format": "{icon} {capacity}%",
 		"format-charging": "🗲 {icon}",
-		"format-discharging": "{icon}",
 		"format-plugged": "🗲 {icon}",
 		
 		"format-icons": {
@@ -104,7 +103,10 @@
 		"format-connected": "󰂱 {device_alias}",
 		"format-disabled": "󰂲",
 		"format-off": "󰂲",
-		"tooltip-format": "{device_alias}",
+			"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+		"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",	
 		"on-click": "blueman-manager"
 	},
 
@@ -135,7 +137,7 @@
 		"format": "▄︻╦デ══───━"
 	},
 
-	"niri/language": {
+	"hyprland/language": {
 		"format": "{}  ",
 		"format-ar":"ع",
 		"format-en":"EN" 
