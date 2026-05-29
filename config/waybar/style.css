@@ -39,7 +39,7 @@
 
 /* ── Global Reset & Base ────────────────────────────────────────────────── */
 * {
-    font-family: "JetBrainsMono Nerd Font", "Iosevka Nerd Font", monospace;
+    font-family: "Inter", "Geist Nerd Font", monospace;
     font-size: 12px;
     font-weight: 500;
     border: none;

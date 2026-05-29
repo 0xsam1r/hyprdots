@@ -4,7 +4,7 @@
 
 layer=overlay
 anchor=top-right
-font=JetBrainsMono Nerd Font 10
+font=Inter 11
 margin=18
 padding=16
 width=400
