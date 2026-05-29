@@ -1,371 +1,413 @@
-/* =====================================================
-   GLOBAL DEFAULTS
-===================================================== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   Ghostpunk Terminal — Waybar Theme
+   Philosophy: ice-blue terminal readout on deep charcoal. information-first,
+   no decoration for its own sake. every pixel earns its place.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Color Palette ─────────────────────────────────────────────────────────
+   Built from existing #93cee9 ice-blue, extended into a full system.
+   ─────────────────────────────────────────────────────────────────────── */
+@define-color bg-base rgba(17, 22, 28, 0.98);
+/* bar background — deep void */
+@define-color bg-surface rgba(22, 28, 36, 0.95);
+/* module islands */
+@define-color bg-elevated rgba(30, 38, 50, 0.98);
+/* hover, active states */
+@define-color bg-overlay rgba(40, 50, 65, 1.0);
+/* tooltips, menus */
+
+@define-color accent-ice #93cee9;
+/* your signature blue */
+@define-color accent-glow #b8e2f5;
+/* lighter for active */
+@define-color accent-dim #5a8fa8;
+/* dimmed blue for subtle */
+
+@define-color fg-primary #e6edf3;
+/* main text — soft white */
+@define-color fg-secondary #a7b3c2;
+/* labels, icons */
+@define-color fg-muted #748295;
+/* separators, borders */
+
+@define-color state-warn #e8b86d;
+/* amber warning */
+@define-color state-crit #e06c75;
+/* red critical */
+@define-color state-ok #7ec88a;
+/* green good */
+
+/* ── Global Reset & Base ────────────────────────────────────────────────── */
 * {
-  background-color: #161a22;
-  color: #e6edf7;
-
-  border: none;
-  border-radius: 0;
-  min-height: 0;
-
-  font-family: "GeistMono Nerd Font Propo", "Symbols Nerd Font", sans-serif;
-  font-size: 14px;
+    font-family: "Inter", "Geist Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
 }
 
-#waybar {
-  transition: background-color 0.3s ease;
+/* ── Bar Window ─────────────────────────────────────────────────────────── */
+window#waybar {
+    background: @bg-base;
+    color: @fg-primary;
+    /* Subtle bottom border as a visual anchor */
+    border-bottom: 1px solid rgba(147, 206, 233, 0.08);
 }
 
-/* =====================================================
-   MODULE CONTAINERS
-===================================================== */
-.modules-left {
-  margin-left: 0px;
-}
-
-.modules-center {
-  margin: 0 6px;
-}
-
+/* ── Module Section Containers ──────────────────────────────────────────── */
+.modules-left,
+.modules-center,
 .modules-right {
-  margin-right: 0px;
+    padding: 0 6px;
 }
 
-/* =====================================================
-   WORKSPACES (HARD GTK RESET – NO SIDE LINES)
-===================================================== */
-#workspaces button {
-  all: unset;
-  /* ⬅ nuclear reset (GTK-safe) */
-
-  background: transparent;
-  color: #7d8596;
-
-  padding: 0 3px;
-  margin: 0 2px;
-
-  border: none;
-  border-left: none;
-  border-right: none;
-
-  outline: none;
-  box-shadow: none;
-  background-image: none;
-
-  transition: color 0.2s ease;
+/* ── Base Module Style ──────────────────────────────────────────────────── */
+/* Every module gets this as a foundation */
+.module {
+    color: @fg-secondary;
+    padding: 0 10px;
+    /* Smooth transitions for all state changes */
+    transition: color 0.2s ease, background 0.2s ease;
 }
 
-/* Hover */
-#workspaces button:hover {
-  color: #c9d1d9;
-
-  border: none;
-  border-left: none;
-  border-right: none;
-
-  outline: none;
-  box-shadow: none;
-  background-image: none;
-}
-
-/* Focus (keyboard / mouse) */
-#workspaces button:focus,
-#workspaces button:focus-visible {
-  border: none;
-  outline: none;
-  box-shadow: none;
-  background-image: none;
-}
-
-/* Active workspace */
-#workspaces button.active {
-  color: #38bdf8;
-
-  box-shadow: none;
-  background-image: none;
-
-  text-shadow: 0 0 5px rgba(56, 189, 248, 0.6);
-}
-
-/* Empty workspace */
-#workspaces button.empty {
-  opacity: 0.88;
-
-}
-
-
-/* =====================================================
-   ARCH KERNEL (REFERENCE STYLE)
-===================================================== */
-#custom-kernel {
-  color: #1793d1;
-  padding: 0 10px;
-  min-width: 56px;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  border-radius: 6px;
-
-  text-shadow: 0 0 6px rgba(23, 147, 209, 0.6);
-  transition: all 0.2s ease;
-}
-
-#custom-kernel:hover {
-  background-color: rgba(23, 147, 209, 0.12);
-  text-shadow: 0 0 9px rgba(23, 147, 209, 0.9);
-}
-
-/* =====================================================
-   RIGHT SIDE – BASE LAYOUT
-===================================================== */
-#bluetooth,
-#network,
-#pulseaudio,
-#cpu,
-#battery,
-#memory,
-#custom-update,
+/* ── Module Islands (grouped bg pills) ─────────────────────────────────── */
+/* The right-side modules share a subtle surface bg to group them visually */
 #tray,
-#language {
-  margin: 0 2px;
-  padding: 0 1px;
-  min-width: 12px;
-}
-
-/* subtle separators */
-#network,
 #pulseaudio,
+#network,
+#bluetooth,
 #cpu,
 #memory,
 #battery,
 #language {
-  border-left: 1px solid rgba(255, 255, 255, 0.04);
+    background: @bg-surface;
+    color: @fg-secondary;
+    padding: 0 10px;
+    margin: 4px 1px;
+    border-radius: 6px;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* tray icons */
-#tray>.tray-item {
-  margin: 0 4px;
+/* First and last items get asymmetric radius for a pill-group feel */
+#tray {
+    border-radius: 6px 3px 3px 6px;
+    padding: 0 8px;
+    margin-right: 0;
 }
 
-/* =====================================================
-   KERNEL-LIKE PILL STYLE (SHARED)
-===================================================== */
-#battery,
-#network,
-#bluetooth,
-#pulseaudio,
 #language {
-  padding: 0 8px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
+    border-radius: 3px 6px 6px 3px;
+    margin-left: 0;
 }
 
-/* =====================================================
-   CPU & Memory (KERNEL-STYLE)
-===================================================== */
-#cpu {
-  color: #93c5fd;
-  padding: 0 8px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
-#cpu:hover {
-  background-color: rgba(147, 197, 253, 0.12);
-  text-shadow: 0 0 8px rgba(147, 197, 253, 0.8);
-}
-
-#memory {
-  color: #67e8f9;
-  ;
-  padding: 0 8px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
-
-/* =====================================================
-   BATTERY (KERNEL-STYLE)
-===================================================== */
-#battery {
-  color: #86efac;
-  font-size: 14px;
-}
-
+/* Hover reveals accent color — only where it's meaningful */
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#cpu:hover,
+#memory:hover,
 #battery:hover {
-  background-color: rgba(134, 239, 172, 0.12);
-  text-shadow: 0 0 8px rgba(134, 239, 172, 0.8);
+    background: @bg-elevated;
+    color: @fg-primary;
 }
 
-#battery.warning {
-  color: #fde68a;
+/* ── Distro Badge ───────────────────────────────────────────────────────── */
+#custom-distro {
+    color: @accent-ice;
+    font-size: 14px;
+    padding: 0 12px 0 8px;
+    margin: 4px 4px 4px 0;
+    background: @bg-surface;
+    border-radius: 6px;
+    transition: color 0.2s ease, background 0.2s ease;
 }
 
-#battery.warning:hover {
-  background-color: rgba(253, 230, 138, 0.14);
+#custom-distro:hover {
+    color: @accent-glow;
+    background: @bg-elevated;
 }
 
-#battery.critical {
-  color: #fb7185;
+/* ── Workspaces ─────────────────────────────────────────────────────────── */
+#workspaces {
+    background: @bg-surface;
+    border-radius: 6px;
+    margin: 4px 4px;
+    padding: 0 4px;
 }
 
-#battery.critical:hover {
-  background-color: rgba(251, 113, 133, 0.16);
-  text-shadow: 0 0 10px rgba(251, 113, 133, 0.9);
+#workspaces button {
+    color: @fg-muted;
+    font-size: 11px;
+    padding: 0 5px;
+    margin: 0 1px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background 0.15s ease;
+    /* Override any OS-level button shadows */
+    box-shadow: none;
+    text-shadow: none;
+    background: transparent;
 }
 
-/* =====================================================
-   NETWORK (KERNEL-STYLE)
-===================================================== */
-#network {
-  color: #38bdf8;
+/* Active workspace — ice-blue dot, subtle bg */
+#workspaces button.active {
+    color: @accent-ice;
+    background: rgba(147, 206, 233, 0.1);
+    font-size: 13px;
+    /* slightly larger active dot */
 }
 
-#network:hover {
-  background-color: rgba(103, 232, 249, 0.12);
-  text-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+/* Hover workspace */
+#workspaces button:hover {
+    color: @accent-dim;
+    background: rgba(147, 206, 233, 0.06);
 }
 
-/* =====================================================
-   BLUETOOTH (KERNEL-STYLE)
-===================================================== */
-#bluetooth {
-  color: #f97316;
+/* Urgent workspace — amber pulse */
+#workspaces button.urgent {
+    color: @state-warn;
+    animation: urgent-pulse 1s ease-in-out infinite;
 }
 
-#bluetooth:hover {
-  background-color: rgba(165, 180, 252, 0.12);
-  text-shadow: 0 0 8px rgba(165, 180, 252, 0.8);
+@keyframes urgent-pulse {
+
+    0% {}
+
+    100% {
+        color: @state-warn;
+    }
+
+    50% {
+        color: rgba(232, 184, 109, 0.4);
+    }
 }
 
-/* =====================================================
-   AUDIO (KERNEL-STYLE)
-===================================================== */
-#pulseaudio {
-  color: #93c5fd;
+/* ── Active Window Title ────────────────────────────────────────────────── */
+#window {
+    color: @fg-secondary;
+    font-size: 11px;
+    padding: 0 10px;
+    margin: 4px 0;
+    /* No background — floats freely to the right of workspaces */
+    background: transparent;
+    letter-spacing: 0.03em;
 }
 
-#pulseaudio:hover {
-  background-color: rgba(147, 197, 253, 0.12);
-  text-shadow: 0 0 8px rgba(147, 197, 253, 0.8);
+/* Highlight the window title on hover for readability */
+#window:hover {
+    color: @fg-secondary;
 }
 
-/* =====================================================
-   UPDATES
-===================================================== */
-#custom-update {
-  color: #fde68a;
-  font-size: 10px;
+/* When no window is active (showing "desktop") */
+#window.empty {
+    color: @fg-muted;
+    font-style: italic;
 }
 
-#custom-update:hover {
-  text-shadow: 0 0 6px rgba(253, 230, 138, 0.8);
-}
-
-window.nowplaying-art {
-  background-color: #0f141b;
-  border-radius: 10px;
-  padding: 6px;
-}
-
-
-/* =====================================================
-   CLOCK (UNDERLINE STYLE)
-===================================================== */
+/* ── Clock ──────────────────────────────────────────────────────────────── */
 #clock {
-  color: #1793d1;
-  padding: 0 10px 1px 10px;
-  /* room for underline */
-  letter-spacing: 0.5px;
-
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
+    color: @accent-ice;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    padding: 0 16px;
+    /* Subtle glow — the clock is the bar's heartbeat */
+    text-shadow: 0 0 12px rgba(147, 206, 233, 0.25);
+    transition: color 0.2s ease;
 }
 
-/* Hover underline */
 #clock:hover {
-  border-bottom-color: #1793d1;
+    color: @accent-glow;
 }
 
-/* Active (after click / alt format) */
-#clock:active {
-  border-bottom-color: #38bdf8;
-  /* Arch cyan */
+/* ── Pulseaudio / Audio ─────────────────────────────────────────────────── */
+#pulseaudio {
+    color: @fg-secondary;
 }
 
-/* =====================================================
-   APP LAUNCHERS (BRAVE + VS CODE)
-===================================================== */
-/* =====================================================
-   SCREEN RECORDING
-===================================================== */
-#custom-screenrecording-indicator.active {
-  color: #fb7185;
-  text-shadow: 0 0 10px rgba(251, 113, 133, 0.9);
+/* Muted state — dimmed and desaturated */
+#pulseaudio.muted {
+    color: @fg-muted;
 }
 
-/* =====================================================
-   Language
-===================================================== */
+/* Active output (headphones connected) */
+#pulseaudio.sink-audio,
+#pulseaudio.source-audio {
+    color: @accent-dim;
+}
+
+/* ── Network ────────────────────────────────────────────────────────────── */
+#network {
+    color: @fg-secondary;
+}
+
+#network.wifi {
+    color: @fg-secondary;
+}
+
+#network.ethernet {
+    color: @state-ok;
+}
+
+/* Disconnected — muted red hint */
+#network.disconnected,
+#network.disabled {
+    color: @fg-muted;
+}
+
+/* ── Bluetooth ──────────────────────────────────────────────────────────── */
+#bluetooth {
+    color: @fg-muted;
+}
+
+/* Connected device — subtle ice-blue */
+#bluetooth.connected {
+    color: @accent-dim;
+}
+
+/* ── CPU ────────────────────────────────────────────────────────────────── */
+#cpu {
+    color: @fg-secondary;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+}
+
+/* Warn when CPU spikes */
+#cpu.high {
+    color: @state-warn;
+}
+
+
+/* ── Memory ─────────────────────────────────────────────────────────────── */
+#memory {
+    color: @fg-secondary;
+}
+
+#memory.warning {
+    color: @state-warn;
+}
+
+#memory.critical {
+    color: @state-crit;
+}
+
+/* ── Battery ────────────────────────────────────────────────────────────── */
+#battery {
+    color: @fg-secondary;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: @state-ok;
+}
+
+#battery.full {
+    color: @state-ok;
+}
+
+#battery.warning:not(.charging) {
+    color: @state-warn;
+}
+
+#battery.critical:not(.charging) {
+    color: @state-crit;
+    /* Subtle pulse at critical level — not annoying, just present */
+    animation: battery-critical 2s ease-in-out infinite;
+}
+
+@keyframes battery-critical {
+
+    0% {}
+
+    50% {
+        color: rgba(224, 108, 117, 0.5);
+    }
+
+    100% {
+        color: @state-crit;
+    }
+
+}
+
+/* ── Language / Keyboard ────────────────────────────────────────────────── */
 #language {
-  color: #b0e0e6;
+    color: @fg-muted;
+    font-size: 11px;
+    letter-spacing: 0.08em;
 }
 
-/* =====================================================
-   NOW PLAYING (CLASSIC STATUS STYLE)
-===================================================== */
-#custom-nowplaying {
-  color: #c9d1d9;
-  padding: 0 10px;
-  margin-right: 6px;
-
-  font-style: italic;
-  letter-spacing: 0.3px;
-
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s ease;
+#language:hover {
+    color: @accent-dim;
+    background: @bg-elevated;
 }
 
-#custom-nowplaying:hover {
-  color: #38bdf8;
-  border-bottom-color: #38bdf8;
-  text-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+/* ── System Tray ────────────────────────────────────────────────────────── */
+#tray {
+    color: @fg-muted;
 }
 
+/* Tray icons spacing */
+#tray>.passive {
+    -gtk-icon-effect: dim;
+}
 
-/* =====================================================
-   TOOLTIP STYLING (GTK SAFE)
-===================================================== */
+#tray>.needs-attention {
+    -gtk-icon-effect: highlight;
+    color: @state-warn;
+}
+
+/* ── Tooltips ───────────────────────────────────────────────────────────── */
 tooltip {
-  background-color: #0f141b;
-  color: #e6edf7;
-
-  border-radius: 6px;
-  border: 1px solid rgba(56, 189, 248, 0.35);
-
-  padding: 6px 8px;
-  font-family: "DepartureMono Nerd Font", monospace;
-  font-size: 11px;
-
-  box-shadow:
-    0 6px 14px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+    background: @bg-overlay;
+    color: @fg-primary;
+    border: 1px solid rgba(147, 206, 233, 0.15);
+    border-radius: 8px;
+    padding: 4px 0;
 }
 
 tooltip label {
-  color: #e6edf7;
+    padding: 2px 10px;
+    font-size: 11px;
 }
 
-tooltip label strong {
-  color: #38bdf8;
+/* ── Context Menus (tray right-click etc.) ──────────────────────────────── */
+menu {
+    background: @bg-overlay;
+    color: @fg-primary;
+    border: 1px solid rgba(147, 206, 233, 0.12);
+    border-radius: 8px;
+    padding: 4px 0;
 }
 
-tooltip.warning {
-  border-color: #fde047;
+menu menuitem {
+    padding: 5px 14px;
+    transition: background 0.15s ease, color 0.15s ease;
 }
 
-tooltip.critical {
-  border-color: #fb7185;
+menu menuitem:hover {
+    background: rgba(147, 206, 233, 0.1);
+    color: @accent-glow;
+}
+
+menu separator {
+    background: rgba(147, 206, 233, 0.08);
+    margin: 3px 8px;
+    min-height: 1px;
+}
+
+/* ── Fade-in animation for popups ───────────────────────────────────────── */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+tooltip,
+menu {
+    animation: fadeIn 0.15s ease-out forwards;
 }

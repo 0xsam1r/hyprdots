@@ -1,21 +1,31 @@
+# Take a look at the mako manpage with the command:
+#   man 5 mako
+# To view all configuration options.
+
 layer=overlay
 anchor=top-right
-font=DepartureMono Nerd Font 12
-margin=12
-padding=15
+font=Inter 11
+margin=18
+padding=16
 width=400
-border-size=1
-border-radius=12,2,12,2
+border-size=2
+border-radius=15,2,15,2
+on-button-left=invoke-default-action
+on-button-middle=dismiss-group
+on-button-right=dismiss
+on-touch=invoke-default-action
+on-notify=exec pw-play ~/.config/mako/sounds/vittemacop-soft-digital-app-notification-minimal-ui-alert.mp3
 
-background-color=#060d0dbb
-text-color=#00ffd5ff
-border-color=#00ffd544
-progress-color=over #00ffd5
+background-color=#0b0f14ee
+text-color=#93cee9ff
+border-color=#93cee944
+progress-color=over #93cee9
 
 default-timeout=5000
-format= %s\n╰─ %b
+format=<b>%s</b>\n%b
 
 [urgency=high]
 border-color=#ff0055aa
 background-color=#120509dd
-format= %s\n╰─ %b
+
+

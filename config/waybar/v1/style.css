@@ -1,0 +1,371 @@
+/* =====================================================
+   GLOBAL DEFAULTS
+===================================================== */
+* {
+  background-color: #161a22;
+  color: #e6edf7;
+
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+
+  font-family: "GeistMono Nerd Font Propo", "Symbols Nerd Font", sans-serif;
+  font-size: 14px;
+}
+
+#waybar {
+  transition: background-color 0.3s ease;
+}
+
+/* =====================================================
+   MODULE CONTAINERS
+===================================================== */
+.modules-left {
+  margin-left: 0px;
+}
+
+.modules-center {
+  margin: 0 6px;
+}
+
+.modules-right {
+  margin-right: 0px;
+}
+
+/* =====================================================
+   WORKSPACES (HARD GTK RESET – NO SIDE LINES)
+===================================================== */
+#workspaces button {
+  all: unset;
+  /* ⬅ nuclear reset (GTK-safe) */
+
+  background: transparent;
+  color: #7d8596;
+
+  padding: 0 3px;
+  margin: 0 2px;
+
+  border: none;
+  border-left: none;
+  border-right: none;
+
+  outline: none;
+  box-shadow: none;
+  background-image: none;
+
+  transition: color 0.2s ease;
+}
+
+/* Hover */
+#workspaces button:hover {
+  color: #c9d1d9;
+
+  border: none;
+  border-left: none;
+  border-right: none;
+
+  outline: none;
+  box-shadow: none;
+  background-image: none;
+}
+
+/* Focus (keyboard / mouse) */
+#workspaces button:focus,
+#workspaces button:focus-visible {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-image: none;
+}
+
+/* Active workspace */
+#workspaces button.active {
+  color: #38bdf8;
+
+  box-shadow: none;
+  background-image: none;
+
+  text-shadow: 0 0 5px rgba(56, 189, 248, 0.6);
+}
+
+/* Empty workspace */
+#workspaces button.empty {
+  opacity: 0.88;
+
+}
+
+
+/* =====================================================
+   ARCH KERNEL (REFERENCE STYLE)
+===================================================== */
+#custom-kernel {
+  color: #1793d1;
+  padding: 0 10px;
+  min-width: 56px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+
+  text-shadow: 0 0 6px rgba(23, 147, 209, 0.6);
+  transition: all 0.2s ease;
+}
+
+#custom-kernel:hover {
+  background-color: rgba(23, 147, 209, 0.12);
+  text-shadow: 0 0 9px rgba(23, 147, 209, 0.9);
+}
+
+/* =====================================================
+   RIGHT SIDE – BASE LAYOUT
+===================================================== */
+#bluetooth,
+#network,
+#pulseaudio,
+#cpu,
+#battery,
+#memory,
+#custom-update,
+#tray,
+#language {
+  margin: 0 2px;
+  padding: 0 1px;
+  min-width: 12px;
+}
+
+/* subtle separators */
+#network,
+#pulseaudio,
+#cpu,
+#memory,
+#battery,
+#language {
+  border-left: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* tray icons */
+#tray>.tray-item {
+  margin: 0 4px;
+}
+
+/* =====================================================
+   KERNEL-LIKE PILL STYLE (SHARED)
+===================================================== */
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#language {
+  padding: 0 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+/* =====================================================
+   CPU & Memory (KERNEL-STYLE)
+===================================================== */
+#cpu {
+  color: #93c5fd;
+  padding: 0 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+#cpu:hover {
+  background-color: rgba(147, 197, 253, 0.12);
+  text-shadow: 0 0 8px rgba(147, 197, 253, 0.8);
+}
+
+#memory {
+  color: #67e8f9;
+  ;
+  padding: 0 8px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+
+/* =====================================================
+   BATTERY (KERNEL-STYLE)
+===================================================== */
+#battery {
+  color: #86efac;
+  font-size: 14px;
+}
+
+#battery:hover {
+  background-color: rgba(134, 239, 172, 0.12);
+  text-shadow: 0 0 8px rgba(134, 239, 172, 0.8);
+}
+
+#battery.warning {
+  color: #fde68a;
+}
+
+#battery.warning:hover {
+  background-color: rgba(253, 230, 138, 0.14);
+}
+
+#battery.critical {
+  color: #fb7185;
+}
+
+#battery.critical:hover {
+  background-color: rgba(251, 113, 133, 0.16);
+  text-shadow: 0 0 10px rgba(251, 113, 133, 0.9);
+}
+
+/* =====================================================
+   NETWORK (KERNEL-STYLE)
+===================================================== */
+#network {
+  color: #38bdf8;
+}
+
+#network:hover {
+  background-color: rgba(103, 232, 249, 0.12);
+  text-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+}
+
+/* =====================================================
+   BLUETOOTH (KERNEL-STYLE)
+===================================================== */
+#bluetooth {
+  color: #f97316;
+}
+
+#bluetooth:hover {
+  background-color: rgba(165, 180, 252, 0.12);
+  text-shadow: 0 0 8px rgba(165, 180, 252, 0.8);
+}
+
+/* =====================================================
+   AUDIO (KERNEL-STYLE)
+===================================================== */
+#pulseaudio {
+  color: #93c5fd;
+}
+
+#pulseaudio:hover {
+  background-color: rgba(147, 197, 253, 0.12);
+  text-shadow: 0 0 8px rgba(147, 197, 253, 0.8);
+}
+
+/* =====================================================
+   UPDATES
+===================================================== */
+#custom-update {
+  color: #fde68a;
+  font-size: 10px;
+}
+
+#custom-update:hover {
+  text-shadow: 0 0 6px rgba(253, 230, 138, 0.8);
+}
+
+window.nowplaying-art {
+  background-color: #0f141b;
+  border-radius: 10px;
+  padding: 6px;
+}
+
+
+/* =====================================================
+   CLOCK (UNDERLINE STYLE)
+===================================================== */
+#clock {
+  color: #1793d1;
+  padding: 0 10px 1px 10px;
+  /* room for underline */
+  letter-spacing: 0.5px;
+
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* Hover underline */
+#clock:hover {
+  border-bottom-color: #1793d1;
+}
+
+/* Active (after click / alt format) */
+#clock:active {
+  border-bottom-color: #38bdf8;
+  /* Arch cyan */
+}
+
+/* =====================================================
+   APP LAUNCHERS (BRAVE + VS CODE)
+===================================================== */
+/* =====================================================
+   SCREEN RECORDING
+===================================================== */
+#custom-screenrecording-indicator.active {
+  color: #fb7185;
+  text-shadow: 0 0 10px rgba(251, 113, 133, 0.9);
+}
+
+/* =====================================================
+   Language
+===================================================== */
+#language {
+  color: #b0e0e6;
+}
+
+/* =====================================================
+   NOW PLAYING (CLASSIC STATUS STYLE)
+===================================================== */
+#custom-nowplaying {
+  color: #c9d1d9;
+  padding: 0 10px;
+  margin-right: 6px;
+
+  font-style: italic;
+  letter-spacing: 0.3px;
+
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+#custom-nowplaying:hover {
+  color: #38bdf8;
+  border-bottom-color: #38bdf8;
+  text-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+}
+
+
+/* =====================================================
+   TOOLTIP STYLING (GTK SAFE)
+===================================================== */
+tooltip {
+  background-color: #0f141b;
+  color: #e6edf7;
+
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+
+  padding: 6px 8px;
+  font-family: "DepartureMono Nerd Font", monospace;
+  font-size: 11px;
+
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.45),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+tooltip label {
+  color: #e6edf7;
+}
+
+tooltip label strong {
+  color: #38bdf8;
+}
+
+tooltip.warning {
+  border-color: #fde047;
+}
+
+tooltip.critical {
+  border-color: #fb7185;
+}

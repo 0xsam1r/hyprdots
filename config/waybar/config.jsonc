@@ -1,35 +1,163 @@
 {
-	"reload_style_on_change": true,
-	"layer": "top",
-	"position": "top",
-	"spacing": 0,
-	"height": 26,
-	"modules-left": ["custom/kernel","custom/operator" ,"niri/workspaces", "network", "bluetooth"],
-	"modules-center": ["clock"],
-	"modules-right": [
-		"tray",
-		"pulseaudio",
-		"cpu",
-		"memory",
-		"battery",
-		"niri/language"
+    // ── Terminal Waybar ──────────────────────────────────────────────
+    // Reload CSS automatically when style.css changes during development
+    "reload_style_on_change": true,
 
-	],
-	"niri/workspaces": {
-		"on-click": "activate",
-		"format": "{icon}",
-		"format-icons": {
-			"default": "🗺",
-			"active": "💥"
-		}
-	},
+    // Render above windows so it's never obscured
+    "layer": "top",
+    "position": "top",
 
+    // Compact height — feels like a status strip, not a panel
+    "height": 28,
+    "spacing": 0,
 
-	"memory": {
-		"interval": 3,
-		/*{percentage}%*/
-		"format": " {icon}",
-		"format-icons": [
+    // ── Module Layout ──────────────────────────────────────────────────────────
+    // LEFT:   kernel tag · workspaces · active window title
+    // CENTER: clock
+    // RIGHT:  tray · audio · net · bt · cpu · mem · battery · lang
+    "modules-left": [
+        "custom/distro",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "tray",
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        "cpu",
+        "memory",
+        "battery",
+        "hyprland/language"
+    ],
+
+    // ── LEFT MODULES ──────────────────────────────────────────────────────────
+
+    // Static distro badge — shows  with kernel version on hover
+    "custom/distro": {
+        "format": "󰣇",
+        "tooltip": true,
+        "exec": "echo $(uname -r | cut -d. -f1-2)",
+        "interval": 3600,
+        "on-click": "kitty --title 'btop' -e btop"
+    },
+
+    // Workspace dots — minimal circles, no text labels
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "format": "{icon}",
+        "format-icons": {
+            // Active workspace = filled circle, others = hollow
+            "default": "○",
+            "active": "●",
+            "urgent": "◉"
+        },
+        // Only show workspaces that are open (no phantom dots)
+        "persistent-workspaces": {}
+    },
+
+    // Active window title — truncated to keep bar clean
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50,
+        "separate-outputs": true,
+        "rewrite": {
+            // Strip common suffixes for cleaner display
+            "(.*) — Mozilla Firefox": "󰈹 $1",
+            "(.*) - Neovim": " $1",
+            "(.*) - kitty": " $1",
+            "": "desktop"
+        }
+    },
+
+    // ── CENTER MODULES ────────────────────────────────────────────────────────
+
+    // Clock — click to toggle between 12h and 24h
+    "clock": {
+        "format": "󰥔  {:%H:%M}",
+        "format-alt": "󰸗  {:%a %d %b · %I:%M %p}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "format": {
+                "months":     "<span color='#93cee9'><b>{}</b></span>",
+                "days":       "<span color='#a8b5c8'><b>{}</b></span>",
+                "weeks":      "<span color='#6272a4'><b>W{}</b></span>",
+                "weekdays":   "<span color='#6e7e9b'><b>{}</b></span>",
+                "today":      "<span color='#93cee9' background='#1e2433'><b>{}</b></span>"
+            }
+        }
+    },
+
+    // ── RIGHT MODULES ─────────────────────────────────────────────────────────
+
+    // System tray — small icons, tight spacing
+    "tray": {
+        "icon-size": 13,
+        "spacing": 8,
+        "show-passive-items": true
+    },
+
+    // Audio — click opens pavucontrol, scroll changes volume
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰝟  muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "󰄋",
+            // Low/mid/high speaker levels
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 3,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip-format": "{desc}\nVolume: {volume}%\nSource: {source_volume}%"
+    },
+
+    // Network — compact wifi or ethernet readout
+    "network": {
+        "interval": 5,
+        "format-wifi": "󰤨  {essid}",
+        "format-ethernet": "󰀂  eth",
+        "format-disconnected": "󰤮  offline",
+        "format-linked": "󰤫  (no IP)",
+        "tooltip-format-wifi": "SSID: {essid}\nSignal: {signalStrength}%\nFreq: {frequency} GHz\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "on-click": "kitty --title 'nmtui' -e nmtui"
+    },
+
+    // Bluetooth — compact, opens blueman on click
+    "bluetooth": {
+        "format": "󰂲",
+        "format-connected": "󰂱  {device_alias}",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "on-click": "blueman-manager",
+        "tooltip-format": "Bluetooth: {status}\n{controller_alias} [{controller_address}]",
+        "tooltip-format-connected": "Connected: {device_enumerate}\n\n{controller_alias} [{controller_address}]",
+        "tooltip-format-enumerate-connected": "  {device_alias} [{device_address}]",
+        "tooltip-format-enumerate-connected-battery": "  {device_alias} [{device_address}] — {device_battery_percentage}%"
+    },
+
+    // CPU — braille fill bar, fast polling
+    "cpu": {
+        "interval": 2,
+        "format": "󰘚  {icon}",
+        "tooltip-format": "CPU Usage: {usage}%\nFreq: {avg_frequency} GHz",
+        // 11-level braille fill — goes from empty to solid as load increases
+        "format-icons": [
 			"░░░░░░░░░░",
 			"█░░░░░░░░░",
 			"██░░░░░░░░",
@@ -41,13 +169,15 @@
 			"████████░░",
 			"█████████░",
 			"██████████"
-		] 
-	},
+        ]
+    },
 
-	"cpu": {
-		"interval": 3,
-		"format": " {icon}",
-		"format-icons": [
+    // Memory — same braille style as CPU for visual consistency
+    "memory": {
+        "interval": 5,
+        "format": "󰍛  {icon}",
+        "tooltip-format": "Used: {used} GiB / {total} GiB\nSwap: {swapUsed} GiB / {swapTotal} GiB",
+        "format-icons": [
 			"░░░░░░░░░░",
 			"█░░░░░░░░░",
 			"██░░░░░░░░",
@@ -59,100 +189,37 @@
 			"████████░░",
 			"█████████░",
 			"██████████"
-		]
-	},
+        ]
+    },
 
-	"clock": {
-		"format": "󰥔 {:L%A %d %b %I:%M %p}",   // 12h with date
-		"format-alt": "󰥔 {:L%A %d %b %H:%M}",  // 24h with date
-		"tooltip": false
-	},
-
-	"network": {
-		"format-wifi": "󰤨 {essid}",
-		"format-ethernet": "󰀂 Wired{ip}",
-		"format-disconnected": "󰤮 Offline",
-		"tooltip-format-wifi": "{essid} ({signalStrength}%)\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
-		"tooltip-format-ethernet": "Wired\n⇣{bandwidthDownBytes} ⇡{bandwidthUpBytes}",
-		"interval": 3
-	},
-	"battery": {
-		"format": "{icon}",
-		"format-charging": "🗲 {icon}",
-		"format-discharging": "{icon}",
-		"format-plugged": "🗲 {icon}",
-		
-		"format-icons": {
-			"default": [
+    // Battery — block-fill icons with charging indicator
+    "battery": {
+        "interval": 10,
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󱐋  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-full": "󰁹  full",
+        "format-icons": [
 				"▱▱▱▱▱", 
 				"▰▱▱▱▱",
 				"▰▰▱▱▱", 
 				"▰▰▰▱▱", 
 				"▰▰▰▰▱", 
 				"▰▰▰▰▰"
-			]
-		},
-		"interval": 5,
-		"states": {
-			"warning": 30,
-			"critical": 10
-		}
-	},
+],
+        "states": {
+            "warning": 30,
+            "critical": 10
+        },
+        "tooltip-format": "{timeTo}\nPower draw: {power}W\nCycles: {cycles}"
+    },
 
-	"bluetooth": {
-		"format": "󰂲",
-		"format-connected": "󰂱 {device_alias}",
-		"format-disabled": "󰂲",
-		"format-off": "󰂲",
-		"tooltip-format": "{device_alias}",
-		"on-click": "blueman-manager"
-	},
-
-	"pulseaudio": {
-		"format": "{icon} {volume}%",
-		"format-muted": " Muted",
-		"format-icons": {
-			"headphone": "",
-			"default": ["", " ", " "]
-		},
-		"scroll-step": 5,
-		"on-click": "",
-		"on-click-right": ""
-	},
-
-	"tray": {
-		"icon-size": 12,
-		"spacing": 15
-	},
-
-	"custom/kernel": {
-		"exec": "uname -r | cut -d'-' -f1",
-		"interval": 3600,
-		"format": " {}"
-	},
-
-	"custom/operator": {
-		"format": "▄︻╦デ══───━"
-	},
-
-	"niri/language": {
-		"format": "{}  ",
-		"format-ar":"ع",
-		"format-en":"EN" 
-	}
+    // Keyboard language — minimal, just the layout code
+    "hyprland/language": {
+        "format": "󰌌  {}",
+        "format-en": "EN",
+        "format-ar": "AR",
+        "on-click": "hyprctl switchxkblayout all next",
+        "tooltip": false
+    }
 }
-
-/*
-Nice 10 levels 
-"⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀",
-    "⣄⣀⣀⣀⣀⣀⣀⣀⣀⣀", "⣤⣀⣀⣀⣀⣀⣀⣀⣀⣀", "⣦⣀⣀⣀⣀⣀⣀⣀⣀⣀", "⣶⣀⣀⣀⣀⣀⣀⣀⣀⣀", "⣷⣀⣀⣀⣀⣀⣀⣀⣀⣀", "⣿⣀⣀⣀⣀⣀⣀⣀⣀⣀",
-    "⣿⣄⣀⣀⣀⣀⣀⣀⣀⣀", "⣿⣤⣀⣀⣀⣀⣀⣀⣀⣀", "⣿⣦⣀⣀⣀⣀⣀⣀⣀⣀", "⣿⣶⣀⣀⣀⣀⣀⣀⣀⣀", "⣿⣷⣀⣀⣀⣀⣀⣀⣀⣀", "⣿⣿⣀⣀⣀⣀⣀⣀⣀⣀",
-    "⣿⣿⣄⣀⣀⣀⣀⣀⣀⣀", "⣿⣿⣤⣀⣀⣀⣀⣀⣀⣀", "⣿⣿⣦⣀⣀⣀⣀⣀⣀⣀", "⣿⣿⣶⣀⣀⣀⣀⣀⣀⣀", "⣿⣿⣷⣀⣀⣀⣀⣀⣀⣀", "⣿⣿⣿⣀⣀⣀⣀⣀⣀⣀",
-    "⣿⣿⣿⣄⣀⣀⣀⣀⣀⣀", "⣿⣿⣿⣤⣀⣀⣀⣀⣀⣀", "⣿⣿⣿⣦⣀⣀⣀⣀⣀⣀", "⣿⣿⣿⣶⣀⣀⣀⣀⣀⣀", "⣿⣿⣿⣷⣀⣀⣀⣀⣀⣀", "⣿⣿⣿⣿⣀⣀⣀⣀⣀⣀",
-    "⣿⣿⣿⣿⣄⣀⣀⣀⣀⣀", "⣿⣿⣿⣿⣤⣀⣀⣀⣀⣀", "⣿⣿⣿⣿⣦⣀⣀⣀⣀⣀", "⣿⣿⣿⣿⣶⣀⣀⣀⣀⣀", "⣿⣿⣿⣿⣷⣀⣀⣀⣀⣀", "⣿⣿⣿⣿⣿⣀⣀⣀⣀⣀",
-    "⣿⣿⣿⣿⣿⣄⣀⣀⣀⣀", "⣿⣿⣿⣿⣿⣤⣀⣀⣀⣀", "⣿⣿⣿⣿⣿⣦⣀⣀⣀⣀", "⣿⣿⣿⣿⣿⣶⣀⣀⣀⣀", "⣿⣿⣿⣿⣿⣷⣀⣀⣀⣀", "⣿⣿⣿⣿⣿⣿⣀⣀⣀⣀",
-    "⣿⣿⣿⣿⣿⣿⣄⣀⣀⣀", "⣿⣿⣿⣿⣿⣿⣤⣀⣀⣀", "⣿⣿⣿⣿⣿⣿⣦⣀⣀⣀", "⣿⣿⣿⣿⣿⣿⣶⣀⣀⣀", "⣿⣿⣿⣿⣿⣿⣷⣀⣀⣀", "⣿⣿⣿⣿⣿⣿⣿⣀⣀⣀",
-    "⣿⣿⣿⣿⣿⣿⣿⣄⣀⣀", "⣿⣿⣿⣿⣿⣿⣿⣤⣀⣀", "⣿⣿⣿⣿⣿⣿⣿⣦⣀⣀", "⣿⣿⣿⣿⣿⣿⣿⣶⣀⣀", "⣿⣿⣿⣿⣿⣿⣿⣷⣀⣀", "⣿⣿⣿⣿⣿⣿⣿⣿⣀⣀",
-    "⣿⣿⣿⣿⣿⣿⣿⣿⣄⣀", "⣿⣿⣿⣿⣿⣿⣿⣿⣤⣀", "⣿⣿⣿⣿⣿⣿⣿⣿⣦⣀", "⣿⣿⣿⣿⣿⣿⣿⣿⣶⣀", "⣿⣿⣿⣿⣿⣿⣿⣿⣷⣀", "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀",
-    "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄", "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣤", "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣦", "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶", "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷", "⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿"
-*/
