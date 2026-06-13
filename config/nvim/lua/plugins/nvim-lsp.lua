@@ -36,7 +36,7 @@ return {
 
       -- ── Keymaps (attached per-buffer on LspAttach) ────────────────────────
       vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("samir-lsp-attach", { clear = true }),
+        group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
         callback = function(event)
           local map = function(keys, func, desc, mode)
             vim.keymap.set(mode or "n", keys, func,
@@ -258,9 +258,6 @@ return {
         -- ── Markdown ─────────────────────────────────────────────────────────
         marksman = {},
 
-        -- ── NOT included (removed): ───────────────────────────────────────────
-        -- jdtls  → Java, مش محتاجه
-        -- stylua → formatter مش LSP server، بيتنصب تحت في ensure_installed بس
       }
 
       -- ── Apply capabilities and register each server ───────────────────────
@@ -281,6 +278,7 @@ return {
         "gofumpt",      -- Go (stricter gofmt)
         "golines",      -- Go (line-length wrapper)
         "clang-format", -- C/C++
+
         -- Linters (used by nvim-lint or null-ls if you have it)
         "eslint_d",     -- JS/TS linting daemon
         "shellcheck",   -- Bash static analysis
