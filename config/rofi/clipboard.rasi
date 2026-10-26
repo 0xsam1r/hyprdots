@@ -1,0 +1,129 @@
+
+* {
+    /* ── PALETTE: change only these ── */
+    bg:           #070b14ee;   /* window background */
+    surface:      #0d1626;     /* header, footer, panels */
+    primary:      #00e5ff;     /* main accent: frame, selection, prompt */
+    primary-soft: #00e5ff26;   /* same hue as primary, low alpha: selection fill */
+    secondary:    #ff2e88;     /* second accent: status light, prompt */
+    text:         #b7c9d6;     /* normal text */
+    muted:        #4d6275;     /* dim text, inner frame, hints */
+    on-primary:   #031018;     /* text drawn on top of primary */
+
+    font: "JetBrainsMono Nerd Font 11";
+    background-color: transparent;
+    text-color:       @text;
+}
+
+configuration {
+    scroll-method: 1;
+}
+
+window {
+    location:         northeast;
+    anchor:           northeast;
+    x-offset:         -16px;
+    y-offset:         48px;
+    width:            500px;
+    padding:          4px;
+    background-color: @bg;
+    border:           1px;
+    border-color:     @primary;
+    border-radius:    0;
+}
+
+/* inner frame = double-border look */
+mainbox {
+    spacing:      0;
+    border:       1px;
+    border-color: @muted;
+    children:     [ "header", "inputbar", "listview", "footer" ];
+}
+
+header {
+    expand:           false;
+    orientation:      horizontal;
+    background-color: @surface;
+    children:         [ "textbox-tag", "textbox-title", "textbox-status" ];
+}
+textbox-tag {
+    str:              " 󰆼 ";
+    expand:           false;
+    padding:          4px 6px;
+    background-color: @primary;
+    text-color:       @on-primary;
+}
+textbox-title {
+    str:            "CLIPBOARD // ARCHIVE";
+    padding:        4px 10px;
+    vertical-align: 0.5;
+    text-color:     @primary;
+}
+textbox-status {
+    str:            "● ONLINE";
+    expand:         false;
+    padding:        4px 10px;
+    vertical-align: 0.5;
+    text-color:     @secondary;
+}
+
+inputbar {
+    expand:       false;
+    padding:      6px 10px;
+    spacing:      8px;
+    border:       1px 0;
+    border-color: @muted;
+    children:     [ "prompt", "entry" ];
+}
+
+entry  { text-color: @primary; placeholder: "Keywords"; placeholder-color: @muted; }
+
+/* ── list ── */
+listview {
+    lines:         7;
+    columns:       1;
+    spacing:       0;
+    padding:       6px 0;
+    cycle:         true;
+    scroll-method: 1;
+    fixed-height:  true;
+    scrollbar:     false;
+}
+element {
+    padding:      3px 10px;
+    spacing:      0;
+    border:       0 0 0 3px;
+    border-color: transparent;
+    text-color:   @muted;
+}
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @muted;
+}
+element selected.normal {
+    background-color: @primary-soft;
+    text-color:       @primary;
+    border-color:     @primary;
+}
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    padding:          0;
+}
+
+footer {
+    expand:           false;
+    orientation:      horizontal;
+    padding:          3px 10px;
+    background-color: @surface;
+    children:         [ "textbox-hint" ];
+}
+
+textbox-hint {
+    str:              "[Enter ↵] COPY  [ESC] EXIT  [[Info]] Are Files";
+    expand:           true;
+    spacing:          6px;
+    horizontal-align: 0.5;    /* 0 = left, 0.5 = center, 1 = right */
+    text-color:       @muted;
+}

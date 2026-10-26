@@ -32,7 +32,6 @@ hl.monitor({ output = "*", mode = "preferred", position = "auto", scale = "1", m
 local terminal = "kitty"
 local menu = "rofi -show drun"
 local scripts = "~/.config/scripts"
-local notes = "marktext"
 local windowSwitcher = "rofi -show window"
 
 -- ==========================================
@@ -185,7 +184,7 @@ hl.config({
 	scrolling = {
 		fullscreen_on_one_column = true,
 		explicit_column_widths = "0.5, 0.75, 1.0",
-		column_width = "0.75",
+		column_width = 0.75,
 	},
 })
 
@@ -284,8 +283,8 @@ hl.bind(
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim ~/Pictures/$(date +%s).png"))
 
 -- Clipboard
-hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
-hl.bind(mainMod .. " + SHIFT + Delete", hl.dsp.exec_cmd("clipman clear"))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(scripts .. "/rofi-clipboard.sh"))
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd(' cliphist wipe && notify-send "Clipboard cleared" '))
 
 -- Session
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
