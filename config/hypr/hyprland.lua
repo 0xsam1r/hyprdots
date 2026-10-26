@@ -262,7 +262,7 @@ hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + DELETE", hl.dsp.exit())
 hl.bind(mainMod .. " + TAB", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(scripts .. "/change-wallpaper.sh"))
+hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(scripts .. "/wallsel-v2.sh"))
 hl.bind("ALT + TAB", hl.dsp.exec_cmd(windowSwitcher))
 hl.bind("F11", hl.dsp.window.fullscreen())
 
