@@ -16,6 +16,7 @@ return {
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       require("flutter-tools").setup({
+        flutter_path = "/opt/flutter/bin/flutter", -- يتخطى /usr/bin wrapper نهائيًا
         lsp = {
           capabilities = capabilities,
           settings = {
@@ -27,9 +28,9 @@ return {
         },
         widget_guides = { enabled = true },
         closing_tags = { enabled = true, prefix = "// " },
-        debugger = { enabled = false }, -- flip to true later if you set up nvim-dap
+        debugger = { enabled = false },
         outline = {
-          open_cmd = "30vnew", -- vertical split for :FlutterOutlineToggle
+          open_cmd = "30vnew",
         },
       })
 
@@ -41,6 +42,6 @@ return {
       map("n", "<leader>fq", "<cmd>FlutterQuit<CR>",        { desc = "Flutter: Quit" })
       map("n", "<leader>fd", "<cmd>FlutterDevices<CR>",     { desc = "Flutter: Devices" })
       map("n", "<leader>fo", "<cmd>FlutterOutlineToggle<CR>",{ desc ="Flutter: Outline" })
-  end,
+    end,
   },
 }

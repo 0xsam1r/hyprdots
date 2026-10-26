@@ -100,8 +100,11 @@ return {
 
       -- ── Diagnostics UI ────────────────────────────────────────────────────
       vim.diagnostic.config {
-        severity_sort = true,
-        float  = { border = "rounded", source = "if_many" },
+        severity_sort = true, -- 👈 يضمن أن أخطاء LSP (ERROR) تعتلي القائمة دائماً
+        float  = {
+          border = "rounded",
+          source = true, -- 👈 القيمة الصحيحة هنا هي true (بدون تنصيص)
+        },
         signs  = vim.g.have_nerd_font and {
           text = {
             [vim.diagnostic.severity.ERROR] = "󰅚 ",
@@ -111,12 +114,17 @@ return {
           },
         } or {},
         virtual_text = {
-          source  = "if_many",
           spacing = 2,
-          format  = function(d) return d.message end,
+          format = function(d)
+            -- 👈 إذا كان الخطأ قادماً من eslint_d أضف له بادئة format: صريحة
+            if d.source == "eslint" or d.source == "eslint_d" then
+              return "format: " .. d.message
+            end
+            -- أخطاء ts_ls و LSP تبقى نقية كما هي
+            return d.message
+          end,
         },
       }
-
       -- ── blink.cmp capabilities ────────────────────────────────────────────
       local capabilities = require("blink.cmp").get_lsp_capabilities()
 
@@ -169,10 +177,8 @@ return {
             "--clang-tidy",
             "--header-insertion=iwyu",
             "--completion-style=detailed",
-            "--function-arg-placeholders",
-          },
-          -- clangd ships its own offsetEncoding; tell blink.cmp to match
-          capabilities = { offsetEncoding = "utf-16" },
+            "--function-arg-placeholders=true",
+          }
         },
 
         -- ── Go ───────────────────────────────────────────────────────────────
