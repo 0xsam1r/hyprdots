@@ -17,24 +17,23 @@ package.path = os.getenv("HOME") .. "/.config/hypr/lua/?.lua;" .. package.path
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 
 hl.monitor({
-    output   = "eDP-1",
-    mode     = "1920x1080@60.11",
-    position = "0x0",
-    scale    = "1.0",
+	output = "eDP-1",
+	mode = "1920x1080@60.11",
+	position = "0x0",
+	scale = "1.0",
 })
 
-hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "1", mirror = "DP-1" })
+hl.monitor({ output = "*", mode = "preferred", position = "auto", scale = "1", mirror = "DP-1" })
 
 -- ==========================================
 -- VARIABLES
 -- ==========================================
 
-local terminal       = "kitty"
-local menu           = "rofi -show drun"
-local scripts        = "~/.config/scripts"
-local notes          = "marktext"
+local terminal = "kitty"
+local menu = "rofi -show drun"
+local scripts = "~/.config/scripts"
+local notes = "marktext"
 local windowSwitcher = "rofi -show window"
-
 
 -- ==========================================
 -- AUTOSTART
@@ -42,20 +41,20 @@ local windowSwitcher = "rofi -show window"
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 
 hl.on("hyprland.start", function()
-    hl.exec_cmd("systemctl --user start hyprpolkitagent")
-    hl.exec_cmd("hyprsunset")
-    hl.exec_cmd("mako")
-    hl.exec_cmd("waybar")
-    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-    hl.exec_cmd("nm-applet --indicator")
-    hl.exec_cmd("blueman-applet")
-    hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("hypridle")
-    hl.exec_cmd("wl-paste --type text --watch cliphist store")
-    hl.exec_cmd("wl-paste --type image --watch cliphist store")
-    hl.exec_cmd("poweralertd")
-    hl.exec_cmd("hyprctl setcursor volantes_cursors 25")
-    hl.exec_cmd("eww daemon & eww open clock")
+	hl.exec_cmd("systemctl --user start hyprpolkitagent")
+	hl.exec_cmd("hyprsunset")
+	hl.exec_cmd("mako")
+	hl.exec_cmd("waybar")
+	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+	hl.exec_cmd("nm-applet --indicator")
+	hl.exec_cmd("blueman-applet")
+	hl.exec_cmd("awww-daemon")
+	hl.exec_cmd("hypridle")
+	hl.exec_cmd("wl-paste --type text --watch cliphist store")
+	hl.exec_cmd("wl-paste --type image --watch cliphist store")
+	hl.exec_cmd("poweralertd")
+	hl.exec_cmd("hyprctl setcursor volantes_cursors 25")
+	hl.exec_cmd("eww daemon & eww open clock")
 end)
 
 -- ==========================================
@@ -87,49 +86,49 @@ hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
 -- Electron
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 
+-- GPU AMD
+hl.env("WLR_DRM_DEVICES,$HOME/.config/hypr/intelCard", "$HOME/.config/hypr/amdCard")
 -- ==========================================
 -- LOOK AND FEEL
 -- ==========================================
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 
 hl.config({
-    general = {
-        gaps_in          = 15,
-        gaps_out         = 25,
-        border_size      = 2,
+	general = {
+		gaps_in = 15,
+		gaps_out = 25,
+		border_size = 2,
 
-        resize_on_border = false,
-        allow_tearing    = false,
-        layout           = "scrolling",
-    },
+		resize_on_border = false,
+		allow_tearing = false,
+		layout = "scrolling",
+	},
 
-    decoration = {
-        rounding         = 5,
-        rounding_power   = 9,
+	decoration = {
+		rounding = 5,
+		rounding_power = 9,
 
-        active_opacity   = 1.0,
-        inactive_opacity = 1.0,
+		active_opacity = 1.0,
+		inactive_opacity = 1.0,
 
-        shadow           = {
-            enabled      = true,
-            range        = 4,
-            render_power = 3,
-        },
+		shadow = {
+			enabled = true,
+			range = 4,
+			render_power = 3,
+		},
 
-        blur             = {
-            enabled           = false,
-            size              = 3,
-            passes            = 1,
-            new_optimizations = true,
-            xray              = true,
-        },
+		blur = {
+			enabled = false,
+			size = 3,
+			passes = 1,
+			new_optimizations = true,
+			xray = true,
+		},
+	},
 
-    },
-
-    animations = {
-        enabled = true,
-    },
-
+	animations = {
+		enabled = true,
+	},
 })
 
 -- ==========================================
@@ -169,25 +168,25 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
-    dwindle = {
-        preserve_split = true, -- You probably want this
-    },
+	dwindle = {
+		preserve_split = true, -- You probably want this
+	},
 })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 hl.config({
-    master = {
-        new_status = "master",
-    },
+	master = {
+		new_status = "master",
+	},
 })
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/ for more
 hl.config({
-    scrolling = {
-        fullscreen_on_one_column = true,
-        explicit_column_widths = "0.5, 0.75, 1.0",
-        column_width = "0.75"
-    },
+	scrolling = {
+		fullscreen_on_one_column = true,
+		explicit_column_widths = "0.5, 0.75, 1.0",
+		column_width = "0.75",
+	},
 })
 
 -- ==========================================
@@ -195,10 +194,10 @@ hl.config({
 -- ==========================================
 
 hl.config({
-    misc = {
-        force_default_wallpaper = 1,
-        disable_hyprland_logo   = false,
-    },
+	misc = {
+		force_default_wallpaper = 1,
+		disable_hyprland_logo = false,
+	},
 })
 
 -- ==========================================
@@ -206,26 +205,25 @@ hl.config({
 -- ==========================================
 
 hl.config({
-    input = {
-        kb_layout          = "us,ara",
-        kb_options         = "grp:alt_shift_toggle",
-        numlock_by_default = true,
+	input = {
+		kb_layout = "us,ara",
+		kb_options = "grp:alt_shift_toggle",
+		numlock_by_default = true,
 
-        follow_mouse       = 0,
-        sensitivity        = 0,
+		follow_mouse = 0,
+		sensitivity = 0,
 
-        touchpad           = {
-            natural_scroll = false,
-        },
-    },
-    cursor = {
-        no_warps = false,
-        persistent_warps = true,
-        warp_on_change_workspace = 1,
-        hide_on_key_press = true
-    }
+		touchpad = {
+			natural_scroll = false,
+		},
+	},
+	cursor = {
+		no_warps = false,
+		persistent_warps = true,
+		warp_on_change_workspace = 1,
+		hide_on_key_press = true,
+	},
 })
-
 
 -- ==========================================
 -- WINDOW & WORKSPACE RULES
@@ -234,22 +232,22 @@ hl.config({
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 --
 hl.window_rule({
-    name           = "suppress-maximize-events",
-    match          = { class = ".*" },
-    suppress_event = "maximize",
+	name = "suppress-maximize-events",
+	match = { class = ".*" },
+	suppress_event = "maximize",
 })
 
 hl.window_rule({
-    name     = "fix-xwayland-drags",
-    match    = {
-        class      = "^$",
-        title      = "^$",
-        xwayland   = true,
-        float      = true,
-        fullscreen = false,
-        pin        = false,
-    },
-    no_focus = true,
+	name = "fix-xwayland-drags",
+	match = {
+		class = "^$",
+		title = "^$",
+		xwayland = true,
+		float = true,
+		fullscreen = false,
+		pin = false,
+	},
+	no_focus = true,
 })
 
 -- ==========================================
@@ -271,8 +269,8 @@ hl.bind("F11", hl.dsp.window.fullscreen())
 
 -- ScreenShot
 hl.bind(
-    "Print",
-    hl.dsp.exec_cmd([[
+	"Print",
+	hl.dsp.exec_cmd([[
         sh -c 'DIR="$HOME/Pictures/screenshots";
         mkdir -p "$DIR";
         FILE="$DIR/$(date +%F_%H-%M-%S).png";
@@ -280,7 +278,7 @@ hl.bind(
         wl-copy < "$FILE" &&
         notify-send -i "$FILE" "Screenshot saved" "Saved to: $FILE"'
     ]]),
-    { description = "Area screenshot" }
+	{ description = "Area screenshot" }
 )
 
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim ~/Pictures/$(date +%s).png"))
@@ -308,9 +306,9 @@ hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 
 -- Workspaces
 for i = 1, 10 do
-    local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
+	local key = i % 10 -- 10 maps to key 0
+	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Special workspace (scratchpad)
@@ -326,14 +324,26 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Media / brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-    { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-    { locked = true, repeating = true })
+hl.bind(
+	"XF86AudioRaiseVolume",
+	hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioLowerVolume",
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioMute",
+	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+	{ locked = true, repeating = true }
+)
+hl.bind(
+	"XF86AudioMicMute",
+	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+	{ locked = true, repeating = true }
+)
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
 
