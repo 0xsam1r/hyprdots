@@ -1,0 +1,213 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Samir · soft islands Waybar
+   Ice + violet on dark navy, no borders, rounded islands floating on a
+   transparent bar. No animations and no glow effects, so it stays light.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@define-color island      rgba(12, 20, 34, 0.90);
+@define-color island-hov  rgba(22, 34, 54, 0.96);
+@define-color ice         #93cee9;
+@define-color ice-bright  #b8e2f5;
+@define-color violet      #968ce6;
+@define-color text        #b4c4d2;
+@define-color text-dim    #6b8296;
+@define-color warn        #f0be6e;
+@define-color crit        #ff6b63;
+@define-color ok          #78ffdc;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Inter", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* the bar itself is invisible; only the islands are drawn */
+window#waybar {
+    background: transparent;
+    color: @text;
+}
+
+/* ── Islands ──────────────────────────────────────────────────────────────── */
+#custom-distro,
+#workspaces,
+#window,
+#clock,
+#tray,
+#pulseaudio,
+#network,
+#bluetooth,
+#cpu,
+#memory,
+#battery,
+#language {
+    background: @island;
+    color: @text;
+    padding: 0 12px;
+    margin: 0;
+    border-radius: 10px;
+}
+
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#cpu:hover,
+#memory:hover,
+#battery:hover,
+#language:hover,
+#custom-distro:hover,
+#clock:hover {
+    background: @island-hov;
+    color: @ice-bright;
+}
+
+/* ── Left ─────────────────────────────────────────────────────────────────── */
+#custom-distro {
+    color: @ice;
+    font-size: 15px;
+    padding: 0 13px;
+}
+
+#workspaces {
+    padding: 0 4px;
+}
+
+#workspaces button {
+    color: @text-dim;
+    font-size: 11px;
+    padding: 0 8px;
+    margin: 4px 1px;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#workspaces button:hover {
+    color: @ice;
+    background: rgba(147, 206, 233, 0.08);
+}
+
+#workspaces button.active {
+    color: @ice;
+    background: rgba(147, 206, 233, 0.16);
+}
+
+#workspaces button.urgent {
+    color: @warn;
+    background: rgba(240, 190, 110, 0.14);
+}
+
+#window {
+    color: @text;
+    font-size: 11px;
+}
+
+#window.empty {
+    color: @text-dim;
+}
+
+/* ── Center ───────────────────────────────────────────────────────────────── */
+#clock {
+    color: @ice;
+    padding: 0 18px;
+    letter-spacing: 0.05em;
+}
+
+/* ── Right ────────────────────────────────────────────────────────────────── */
+#tray {
+    padding: 0 10px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#pulseaudio.muted,
+#bluetooth {
+    color: @text-dim;
+}
+
+#bluetooth.connected {
+    color: @ice;
+}
+
+#network.ethernet {
+    color: @ok;
+}
+
+#network.linked {
+    color: @warn;
+}
+
+#network.disconnected,
+#network.disabled {
+    color: @text-dim;
+}
+
+#cpu.warning,
+#memory.warning,
+#battery.warning:not(.charging) {
+    color: @warn;
+}
+
+#cpu.critical,
+#memory.critical,
+#battery.critical:not(.charging) {
+    color: @crit;
+}
+
+#battery.charging,
+#battery.plugged,
+#battery.full {
+    color: @ok;
+}
+
+#language {
+    color: @text-dim;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+}
+
+/* ── Tooltips & menus ─────────────────────────────────────────────────────── */
+tooltip {
+    background: @island-hov;
+    color: @text;
+    border-radius: 10px;
+    padding: 4px 0;
+}
+
+tooltip label {
+    padding: 2px 12px;
+    font-size: 11px;
+}
+
+menu {
+    background: @island-hov;
+    color: @text;
+    border-radius: 10px;
+    padding: 4px 0;
+}
+
+menu menuitem {
+    padding: 5px 14px;
+}
+
+menu menuitem:hover {
+    background: rgba(147, 206, 233, 0.12);
+    color: @ice-bright;
+}
+
+menu separator {
+    background: rgba(147, 206, 233, 0.10);
+    margin: 3px 8px;
+    min-height: 1px;
+}

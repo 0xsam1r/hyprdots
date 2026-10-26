@@ -1,0 +1,329 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Samir Ahmed · Psycho-Pass Waybar
+   Same language as hyprlock-samir-full and wallsel: ice + violet on dark navy,
+   square corners, 1px rulers, bracket accents, one live Sibyl reading.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Palette (same values as the lockscreen) ──────────────────────────────── */
+@define-color void        rgba(4, 12, 24, 0.82);
+@define-color ice         #93cee9;
+@define-color ice-bright  #b8e2f5;
+@define-color ice-dim     rgba(147, 206, 233, 0.62);
+@define-color ice-quiet   rgba(147, 206, 233, 0.38);
+@define-color ice-faint   rgba(147, 206, 233, 0.16);
+@define-color ice-bracket rgba(147, 206, 233, 0.75);
+@define-color violet      #968ce6;
+@define-color danger      #ff463c;
+@define-color warn        #f0be6e;
+@define-color ok          #78ffdc;
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+* {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+window#waybar {
+    background: @void;
+    color: @ice-dim;
+    border-bottom: 1px solid @ice-faint;
+}
+
+.modules-left   { padding-left: 12px; }
+.modules-center { padding: 0; }
+.modules-right  { padding-right: 12px; }
+
+.module {
+    color: @ice-dim;
+    padding: 0 12px;
+    transition: color 0.2s ease, background 0.2s ease;
+}
+
+/* ── Right side: ruler-tick separators instead of pills ───────────────────── */
+#custom-sibyl,
+#tray,
+#pulseaudio,
+#network,
+#bluetooth,
+#cpu,
+#memory,
+#battery,
+#language {
+    background: transparent;
+    color: @ice-dim;
+    padding: 0 12px;
+    margin: 7px 0;
+    border-left: 1px solid @ice-faint;
+    letter-spacing: 0.05em;
+}
+
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#cpu:hover,
+#memory:hover,
+#battery:hover,
+#language:hover {
+    color: @ice-bright;
+    background: rgba(147, 206, 233, 0.06);
+}
+
+/* ── Distro badge: a small framed square ──────────────────────────────────── */
+#custom-distro {
+    color: @ice;
+    font-size: 15px;
+    padding: 0 10px;
+    margin: 5px 10px 5px 0;
+    border: 1px solid @ice-bracket;
+    background: rgba(147, 206, 233, 0.06);
+    text-shadow: 0 0 8px rgba(147, 206, 233, 0.5);
+}
+
+#custom-distro:hover {
+    color: @ice-bright;
+    background: rgba(147, 206, 233, 0.12);
+}
+
+/* ── Workspaces: the active one gets a bracket box ────────────────────────── */
+#workspaces {
+    background: transparent;
+    margin: 0 6px 0 0;
+}
+
+#workspaces button {
+    color: @ice-quiet;
+    font-size: 11px;
+    padding: 0 8px;
+    margin: 5px 1px;
+    border: 1px solid transparent;
+    background: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    transition: color 0.2s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+#workspaces button:hover {
+    color: @ice;
+    background: rgba(147, 206, 233, 0.06);
+}
+
+#workspaces button.active {
+    color: @ice;
+    border: 1px solid @ice-bracket;
+    background: rgba(147, 206, 233, 0.10);
+    text-shadow: 0 0 8px rgba(147, 206, 233, 0.6);
+}
+
+#workspaces button.urgent {
+    color: @danger;
+    border: 1px solid @danger;
+    animation: urgent-pulse 1s ease-in-out infinite;
+}
+
+@keyframes urgent-pulse {
+    0%   { color: @danger; }
+    50%  { color: rgba(255, 70, 60, 0.35); }
+    100% { color: @danger; }
+}
+
+/* ── Active window ────────────────────────────────────────────────────────── */
+#window {
+    color: @ice-dim;
+    font-size: 11px;
+    padding: 0 10px;
+    margin: 4px 0;
+    background: transparent;
+    letter-spacing: 0.06em;
+}
+
+#window.empty {
+    color: @violet;
+    font-style: italic;
+    letter-spacing: 0.2em;
+}
+
+/* ── Clock: framed by two brackets, glowing like the lockscreen clock ─────── */
+#clock {
+    color: @ice;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    padding: 0 20px;
+    margin: 5px 0;
+    border-left: 2px solid @ice-bracket;
+    border-right: 2px solid @ice-bracket;
+    text-shadow: 0 0 10px rgba(147, 206, 233, 0.5);
+    transition: color 0.2s ease;
+}
+
+#clock:hover {
+    color: @ice-bright;
+}
+
+/* ── Sibyl reading: the one live element ──────────────────────────────────── */
+#custom-sibyl {
+    letter-spacing: 0.14em;
+    border-left: 1px solid @ice-faint;
+}
+
+#custom-sibyl.clear {
+    color: @ice;
+}
+
+#custom-sibyl.cloudy {
+    color: @violet;
+}
+
+#custom-sibyl.critical {
+    color: @danger;
+    animation: sibyl-critical 1s ease-in-out infinite;
+}
+
+#custom-sibyl.glitch {
+    color: @violet;
+    animation: sibyl-glitch 0.5s ease-in-out 1;
+}
+
+@keyframes sibyl-critical {
+    0%   { color: @danger; }
+    50%  { color: rgba(255, 70, 60, 0.4); }
+    100% { color: @danger; }
+}
+
+@keyframes sibyl-glitch {
+    0%   { color: @violet; }
+    50%  { color: rgba(150, 140, 230, 0.25); }
+    100% { color: @violet; }
+}
+
+/* ── Audio ────────────────────────────────────────────────────────────────── */
+#pulseaudio.muted {
+    color: @ice-quiet;
+}
+
+/* ── Network ──────────────────────────────────────────────────────────────── */
+#network.ethernet {
+    color: @ok;
+}
+
+#network.linked {
+    color: @warn;
+}
+
+#network.disconnected,
+#network.disabled {
+    color: @danger;
+}
+
+/* ── Bluetooth ────────────────────────────────────────────────────────────── */
+#bluetooth {
+    color: @ice-quiet;
+}
+
+#bluetooth.connected {
+    color: @ice;
+}
+
+/* ── CPU / Memory ─────────────────────────────────────────────────────────── */
+#cpu.warning,
+#memory.warning {
+    color: @warn;
+}
+
+#cpu.critical,
+#memory.critical {
+    color: @danger;
+}
+
+/* ── Battery ──────────────────────────────────────────────────────────────── */
+#battery.charging,
+#battery.plugged,
+#battery.full {
+    color: @ok;
+}
+
+#battery.warning:not(.charging) {
+    color: @warn;
+}
+
+#battery.critical:not(.charging) {
+    color: @danger;
+    animation: battery-critical 2s ease-in-out infinite;
+}
+
+@keyframes battery-critical {
+    0%   { color: @danger; }
+    50%  { color: rgba(255, 70, 60, 0.4); }
+    100% { color: @danger; }
+}
+
+/* ── Language ─────────────────────────────────────────────────────────────── */
+#language {
+    color: @ice-quiet;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+}
+
+/* ── Tray ─────────────────────────────────────────────────────────────────── */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    color: @warn;
+}
+
+/* ── Tooltips & menus: square, framed ─────────────────────────────────────── */
+tooltip {
+    background: rgba(4, 12, 24, 0.96);
+    color: @ice;
+    border: 1px solid @ice-bracket;
+    border-radius: 0;
+    padding: 4px 0;
+}
+
+tooltip label {
+    padding: 2px 12px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}
+
+menu {
+    background: rgba(4, 12, 24, 0.96);
+    color: @ice;
+    border: 1px solid @ice-bracket;
+    border-radius: 0;
+    padding: 4px 0;
+}
+
+menu menuitem {
+    padding: 5px 14px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+menu menuitem:hover {
+    background: rgba(147, 206, 233, 0.12);
+    color: @ice-bright;
+}
+
+menu separator {
+    background: @ice-faint;
+    margin: 3px 8px;
+    min-height: 1px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+tooltip,
+menu {
+    animation: fadeIn 0.15s ease-out forwards;
+}

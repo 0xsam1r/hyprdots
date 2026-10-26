@@ -1,0 +1,211 @@
+{
+    // ── Samir · soft islands Waybar ──────────────────────────────────────────
+    // Light on resources: no scripts, no custom modules, slower polling.
+
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+    "spacing": 6,
+
+    "modules-left": [
+        "custom/distro",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "tray",
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        "cpu",
+        "memory",
+        "battery",
+        "hyprland/language"
+    ],
+
+    // ── LEFT ─────────────────────────────────────────────────────────────────
+
+    "custom/distro": {
+        "format": "󰣇",
+        "tooltip": false,
+        "on-click": "kitty --title 'btop' -e btop"
+    },
+
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "format": "{icon}",
+        "format-icons": {
+            "default": "○",
+            "active": "●",
+            "urgent": "◉"
+        },
+        "persistent-workspaces": {}
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50,
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "󰈹 $1",
+            "(.*) - Neovim": " $1",
+            "(.*) - kitty": " $1",
+            "": "desktop"
+        }
+    },
+
+    // ── CENTER ───────────────────────────────────────────────────────────────
+
+    // click toggles the alternate format
+    "clock": {
+        "format": "󰥔  {:%H:%M}",
+        "format-alt": "󰸗  {:%a %d %b · %H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#93cee9'><b>{}</b></span>",
+                "days":     "<span color='#a7b9c8'>{}</span>",
+                "weeks":    "<span color='#968ce6'><b>W{}</b></span>",
+                "weekdays": "<span color='#6b8296'><b>{}</b></span>",
+                "today":    "<span color='#0b1624' background='#93cee9'><b>{}</b></span>"
+            }
+        }
+    },
+
+    // ── RIGHT ────────────────────────────────────────────────────────────────
+
+    "tray": {
+        "icon-size": 14,
+        "spacing": 8,
+        "show-passive-items": true
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰝟  muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 3,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip-format": "{desc}\nVolume: {volume}%\nSource: {source_volume}%"
+    },
+
+    "network": {
+        "interval": 10,
+        "format-wifi": "󰤨  {essid}",
+        "format-ethernet": "󰀂  eth",
+        "format-disconnected": "󰤮  offline",
+        "format-linked": "󰤫  (no IP)",
+        "tooltip-format-wifi": "SSID: {essid}\nSignal: {signalStrength}%\nFreq: {frequency} GHz\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "on-click": "kitty --title 'nmtui' -e nmtui"
+    },
+
+    "bluetooth": {
+        "format": "󰂲",
+        "format-connected": "󰂱  {device_alias}",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "on-click": "blueman-manager",
+        "tooltip-format": "Bluetooth: {status}\n{controller_alias} [{controller_address}]",
+        "tooltip-format-connected": "Connected: {device_enumerate}\n\n{controller_alias} [{controller_address}]",
+        "tooltip-format-enumerate-connected": "  {device_alias} [{device_address}]",
+        "tooltip-format-enumerate-connected-battery": "  {device_alias} [{device_address}] — {device_battery_percentage}%"
+    },
+
+    // "states" added: the old CSS had warning/critical rules that nothing ever set
+    "cpu": {
+        "interval": 3,
+        "format": "󰘚  {icon}",
+        "tooltip-format": "CPU Usage: {usage}%\nFreq: {avg_frequency} GHz",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "format-icons": [
+            "░░░░░░░░░░",
+            "█░░░░░░░░░",
+            "██░░░░░░░░",
+            "███░░░░░░░",
+            "████░░░░░░",
+            "█████░░░░░",
+            "██████░░░░",
+            "███████░░░",
+            "████████░░",
+            "█████████░",
+            "██████████"
+        ]
+    },
+
+    "memory": {
+        "interval": 10,
+        "format": "󰍛  {icon}",
+        "tooltip-format": "Used: {used} GiB / {total} GiB\nSwap: {swapUsed} GiB / {swapTotal} GiB",
+        "states": {
+            "warning": 75,
+            "critical": 90
+        },
+        "format-icons": [
+            "░░░░░░░░░░",
+            "█░░░░░░░░░",
+            "██░░░░░░░░",
+            "███░░░░░░░",
+            "████░░░░░░",
+            "█████░░░░░",
+            "██████░░░░",
+            "███████░░░",
+            "████████░░",
+            "█████████░",
+            "██████████"
+        ]
+    },
+
+    "battery": {
+        "interval": 30,
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󱐋  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-full": "󰁹  full",
+        "format-icons": [
+            "▱▱▱▱▱",
+            "▰▱▱▱▱",
+            "▰▰▱▱▱",
+            "▰▰▰▱▱",
+            "▰▰▰▰▱",
+            "▰▰▰▰▰"
+        ],
+        "states": {
+            "warning": 30,
+            "critical": 10
+        },
+        "tooltip-format": "{timeTo}\nPower draw: {power}W\nCycles: {cycles}"
+    },
+
+    "hyprland/language": {
+        "format": "󰌌  {}",
+        "format-en": "EN",
+        "format-ar": "AR",
+        "on-click": "hyprctl switchxkblayout all next",
+        "tooltip": false
+    }
+}

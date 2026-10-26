@@ -1,0 +1,226 @@
+{
+    // ── Samir Ahmed · Psycho-Pass Waybar ─────────────────────────────────────
+    // Matches hyprlock-samir-full + wallsel: ice/violet on dark navy, square
+    // corners, bracket accents, one live "Sibyl reading" module.
+    // Needs: ~/.config/waybar/scripts/sibyl.sh (executable)
+    "reload_style_on_change": true,
+
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "spacing": 0,
+
+    // ── Module Layout ────────────────────────────────────────────────────────
+    // LEFT:   distro badge · workspaces · active window
+    // CENTER: [ clock ]
+    // RIGHT:  sibyl · tray · audio · net · bt · cpu · mem · battery · lang
+    "modules-left": [
+        "custom/distro",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "custom/sibyl",
+        "tray",
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        "cpu",
+        "memory",
+        "battery",
+        "hyprland/language"
+    ],
+
+    // ── LEFT ─────────────────────────────────────────────────────────────────
+
+    "custom/distro": {
+        "format": "󰣇",
+        "tooltip": true,
+        "tooltip-format": "PUBLIC SAFETY BUREAU\nTECHNICAL OPS · DIV. 1",
+        "on-click": "kitty --title 'btop' -e btop"
+    },
+
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "format": "{icon}",
+        "format-icons": {
+            "default": "○",
+            "active": "●",
+            "urgent": "◉"
+        },
+        "persistent-workspaces": {}
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50,
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "󰈹 $1",
+            "(.*) - Neovim": " $1",
+            "(.*) - kitty": " $1",
+            "": "STANDBY"
+        }
+    },
+
+    // ── CENTER ───────────────────────────────────────────────────────────────
+
+    // click toggles the alternate format
+    "clock": {
+        "format": "󰥔  {:%H:%M}",
+        "format-alt": "󰸗  {:%a %d %b · %H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#93cee9'><b>{}</b></span>",
+                "days":     "<span color='#9fb7c4'>{}</span>",
+                "weeks":    "<span color='#968ce6'><b>W{}</b></span>",
+                "weekdays": "<span color='#5f7f90'><b>{}</b></span>",
+                "today":    "<span color='#04121c' background='#93cee9'><b>{}</b></span>"
+            }
+        }
+    },
+
+    // ── RIGHT ────────────────────────────────────────────────────────────────
+
+    // What SIBYL claims about you. Jumps every second, glitches now and then.
+    "custom/sibyl": {
+        "exec": "$HOME/.config/waybar/scripts/sibyl.sh",
+        "return-type": "json",
+        "interval": 1,
+        "format": "● SIBYL {}",
+        "tooltip": true
+    },
+
+    "tray": {
+        "icon-size": 13,
+        "spacing": 8,
+        "show-passive-items": true
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "󰝟  muted",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "scroll-step": 3,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip-format": "{desc}\nVolume: {volume}%\nSource: {source_volume}%"
+    },
+
+    "network": {
+        "interval": 5,
+        "format-wifi": "󰤨  {essid}",
+        "format-ethernet": "󰀂  eth",
+        "format-disconnected": "󰤮  offline",
+        "format-linked": "󰤫  (no IP)",
+        "tooltip-format-wifi": "SSID: {essid}\nSignal: {signalStrength}%\nFreq: {frequency} GHz\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "on-click": "kitty --title 'nmtui' -e nmtui"
+    },
+
+    "bluetooth": {
+        "format": "󰂲",
+        "format-connected": "󰂱  {device_alias}",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "on-click": "blueman-manager",
+        "tooltip-format": "Bluetooth: {status}\n{controller_alias} [{controller_address}]",
+        "tooltip-format-connected": "Connected: {device_enumerate}\n\n{controller_alias} [{controller_address}]",
+        "tooltip-format-enumerate-connected": "  {device_alias} [{device_address}]",
+        "tooltip-format-enumerate-connected-battery": "  {device_alias} [{device_address}] — {device_battery_percentage}%"
+    },
+
+    // "states" added: the old CSS had .high/.warning/.critical rules but nothing set them
+    "cpu": {
+        "interval": 2,
+        "format": "󰘚  {icon}",
+        "tooltip-format": "CPU Usage: {usage}%\nFreq: {avg_frequency} GHz",
+        "states": {
+            "warning": 70,
+            "critical": 90
+        },
+        "format-icons": [
+            "░░░░░░░░░░",
+            "█░░░░░░░░░",
+            "██░░░░░░░░",
+            "███░░░░░░░",
+            "████░░░░░░",
+            "█████░░░░░",
+            "██████░░░░",
+            "███████░░░",
+            "████████░░",
+            "█████████░",
+            "██████████"
+        ]
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "󰍛  {icon}",
+        "tooltip-format": "Used: {used} GiB / {total} GiB\nSwap: {swapUsed} GiB / {swapTotal} GiB",
+        "states": {
+            "warning": 75,
+            "critical": 90
+        },
+        "format-icons": [
+            "░░░░░░░░░░",
+            "█░░░░░░░░░",
+            "██░░░░░░░░",
+            "███░░░░░░░",
+            "████░░░░░░",
+            "█████░░░░░",
+            "██████░░░░",
+            "███████░░░",
+            "████████░░",
+            "█████████░",
+            "██████████"
+        ]
+    },
+
+    "battery": {
+        "interval": 10,
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󱐋  {capacity}%",
+        "format-plugged": "󰚥  {capacity}%",
+        "format-full": "󰁹  full",
+        "format-icons": [
+            "▱▱▱▱▱",
+            "▰▱▱▱▱",
+            "▰▰▱▱▱",
+            "▰▰▰▱▱",
+            "▰▰▰▰▱",
+            "▰▰▰▰▰"
+        ],
+        "states": {
+            "warning": 30,
+            "critical": 10
+        },
+        "tooltip-format": "{timeTo}\nPower draw: {power}W\nCycles: {cycles}"
+    },
+
+    "hyprland/language": {
+        "format": "󰌌  {}",
+        "format-en": "EN",
+        "format-ar": "AR",
+        "on-click": "hyprctl switchxkblayout all next",
+        "tooltip": false
+    }
+}

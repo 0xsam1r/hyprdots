@@ -1,0 +1,224 @@
+{
+    // ── Samir · Waybar // SIBYL DOMINATOR ────────────────────────────────────
+    // Same layout as before, new palette (cyan / orange / red) and one new
+    // module: custom/dominator, whose mode follows CPU load.
+
+    "layer": "top",
+    "position": "top",
+    "height": 36,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+    "spacing": 8,
+
+    "modules-left": [
+        "custom/distro",
+        "custom/dominator",
+        "hyprland/workspaces",
+        "hyprland/window"
+    ],
+
+    "modules-center": [
+        "group/center"
+    ],
+
+    "modules-right": [
+        "group/net",
+        "group/sys",
+        "hyprland/language"
+    ],
+
+    // ── LEFT ─────────────────────────────────────────────────────────────────
+
+    "custom/distro": {
+        "format": "󰣇",
+        "tooltip": false,
+        "on-click": "kitty --title 'btop' -e btop"
+    },
+
+    // PARALYZER < 70% CPU <= ELIMINATOR < 90% <= DECOMPOSER
+    "custom/dominator": {
+        "exec": "~/.config/waybar/dominator.sh",
+        "return-type": "json",
+        "interval": 2,
+        "on-click": "kitty --title 'btop' -e btop"
+    },
+
+    "hyprland/workspaces": {
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "format": "{id}",
+        "all-outputs": false
+    },
+
+    "hyprland/window": {
+        "format": "<span color='#35e0f5'>▌</span> {}",
+        "max-length": 36,
+        "separate-outputs": true,
+        "rewrite": {
+            "(.*) — Mozilla Firefox": "󰈹  $1",
+            "(.*) - Neovim": "  $1",
+            "(.*) - kitty": "  $1",
+            "": "<span color='#1b7f90'>▌</span> SIBYL // idle"
+        }
+    },
+
+    // ── CENTER ───────────────────────────────────────────────────────────────
+
+    "group/center": {
+        "orientation": "horizontal",
+        "modules": ["clock#date", "clock#time"]
+    },
+
+    "clock#date": {
+        "format": "󰃭  {:%a %d %b}",
+        "tooltip": false
+    },
+
+    "clock#time": {
+        "format": "{:%H:%M}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "format": {
+                "months":   "<span color='#35e0f5'><b>{}</b></span>",
+                "days":     "<span color='#b5c9d2'>{}</span>",
+                "weeks":    "<span color='#ff8a1f'><b>W{}</b></span>",
+                "weekdays": "<span color='#6f8fa3'><b>{}</b></span>",
+                "today":    "<span color='#05090f' background='#35e0f5'><b>{}</b></span>"
+            }
+        }
+    },
+
+    // ── RIGHT ────────────────────────────────────────────────────────────────
+
+    "group/net": {
+        "orientation": "horizontal",
+        "modules": ["tray", "pulseaudio", "network", "bluetooth"]
+    },
+
+    "group/sys": {
+        "orientation": "horizontal",
+        "modules": ["cpu", "memory", "battery"]
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8,
+        "show-passive-items": true
+    },
+
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "<span color='#6f8fa3'>󰝟  muted</span>",
+        "format-icons": {
+            "headphone": "<span color='#35e0f5'>󰋋</span>",
+            "hands-free": "<span color='#35e0f5'>󰋎</span>",
+            "headset": "<span color='#35e0f5'>󰋎</span>",
+            "phone": "<span color='#35e0f5'></span>",
+            "portable": "<span color='#35e0f5'></span>",
+            "car": "<span color='#35e0f5'>󰄋</span>",
+            "default": [
+                "<span color='#35e0f5'>󰕿</span>",
+                "<span color='#35e0f5'>󰖀</span>",
+                "<span color='#35e0f5'>󰕾</span>"
+            ]
+        },
+        "scroll-step": 3,
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "tooltip-format": "{desc}\nVolume: {volume}%\nSource: {source_volume}%"
+    },
+
+    "network": {
+        "interval": 10,
+        "format-wifi": "<span color='#35e0f5'>󰤨</span>  {essid}",
+        "format-ethernet": "<span color='#5dffb0'>󰀂</span>  eth",
+        "format-disconnected": "<span color='#ff2f4f'>󰤮</span>  offline",
+        "format-linked": "<span color='#ff8a1f'>󰤫</span>  no ip",
+        "max-length": 18,
+        "tooltip-format-wifi": "SSID: {essid}\nSignal: {signalStrength}%\nFreq: {frequency} GHz\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+        "on-click": "kitty --title 'nmtui' -e nmtui"
+    },
+
+    "bluetooth": {
+        "format": "<span color='#6f8fa3'>󰂲</span>",
+        "format-connected": "<span color='#35e0f5'>󰂱</span>  {device_alias}",
+        "format-disabled": "<span color='#6f8fa3'>󰂲</span>",
+        "format-off": "<span color='#6f8fa3'>󰂲</span>",
+        "max-length": 16,
+        "on-click": "blueman-manager",
+        "tooltip-format": "Bluetooth: {status}\n{controller_alias} [{controller_address}]",
+        "tooltip-format-connected": "Connected: {device_enumerate}\n\n{controller_alias} [{controller_address}]",
+        "tooltip-format-enumerate-connected": "  {device_alias} [{device_address}]",
+        "tooltip-format-enumerate-connected-battery": "  {device_alias} [{device_address}] — {device_battery_percentage}%"
+    },
+
+    // level meter: cyan calm -> orange hot -> red critical
+    "cpu": {
+        "interval": 3,
+        "format": "<span color='#6f8fa3'>󰘚</span> {icon} {usage}%",
+        "tooltip-format": "Crime Coefficient: {usage}\nFreq: {avg_frequency} GHz",
+        "states": { "warning": 70, "critical": 90 },
+        "format-icons": [
+            "<span color='#35e0f5'>▁</span>",
+            "<span color='#35e0f5'>▂</span>",
+            "<span color='#35e0f5'>▃</span>",
+            "<span color='#1fb8cf'>▄</span>",
+            "<span color='#1fb8cf'>▅</span>",
+            "<span color='#ff8a1f'>▆</span>",
+            "<span color='#ff8a1f'>▇</span>",
+            "<span color='#ff2f4f'>█</span>"
+        ]
+    },
+
+    "memory": {
+        "interval": 10,
+        "format": "<span color='#6f8fa3'>󰍛</span> {icon} {percentage}%",
+        "tooltip-format": "Used: {used} GiB / {total} GiB\nSwap: {swapUsed} GiB / {swapTotal} GiB",
+        "states": { "warning": 75, "critical": 90 },
+        "format-icons": [
+            "<span color='#35e0f5'>▁</span>",
+            "<span color='#35e0f5'>▂</span>",
+            "<span color='#35e0f5'>▃</span>",
+            "<span color='#1fb8cf'>▄</span>",
+            "<span color='#1fb8cf'>▅</span>",
+            "<span color='#ff8a1f'>▆</span>",
+            "<span color='#ff8a1f'>▇</span>",
+            "<span color='#ff2f4f'>█</span>"
+        ]
+    },
+
+    "battery": {
+        "interval": 30,
+        "format": "{icon}  {capacity}%",
+        "format-charging": "<span color='#5dffb0'>󰂄</span>  {capacity}%",
+        "format-plugged": "<span color='#5dffb0'>󰚥</span>  {capacity}%",
+        "format-full": "<span color='#5dffb0'>󰁹</span>  full",
+        "format-icons": [
+            "<span color='#ff2f4f'>󰁺</span>",
+            "<span color='#ff2f4f'>󰁻</span>",
+            "<span color='#ff8a1f'>󰁼</span>",
+            "<span color='#ff8a1f'>󰁽</span>",
+            "<span color='#35e0f5'>󰁾</span>",
+            "<span color='#35e0f5'>󰁿</span>",
+            "<span color='#35e0f5'>󰂀</span>",
+            "<span color='#35e0f5'>󰂁</span>",
+            "<span color='#35e0f5'>󰂂</span>",
+            "<span color='#35e0f5'>󰁹</span>"
+        ],
+        "states": { "warning": 30, "critical": 10 },
+        "tooltip-format": "{timeTo}\nPower draw: {power}W\nCycles: {cycles}"
+    },
+
+    "hyprland/language": {
+        "format": "󰌌  {}",
+        "format-en": "EN",
+        "format-ar": "AR",
+        "on-click": "hyprctl switchxkblayout all next",
+        "tooltip": false
+    }
+}

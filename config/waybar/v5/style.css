@@ -1,0 +1,278 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Samir · Waybar  //  SIBYL DOMINATOR
+   Psycho-Pass HUD: dark glass panels, cyan [ bracket ] edges, white polymer
+   badge. The Dominator module switches mode with CPU load:
+     PARALYZER (cyan)  ->  ELIMINATOR (orange)  ->  DECOMPOSER (red, blinking)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@define-color cyan        #35e0f5;
+@define-color cyan-bright #b5f7ff;
+@define-color cyan-dim    #1b7f90;
+@define-color steel       #6f8fa3;
+@define-color text        #cfe3ea;
+@define-color text-dim    #6f8fa3;
+@define-color void        #05090f;
+@define-color polymer     #eef3f6;
+@define-color warn        #ff8a1f;
+@define-color crit        #ff2f4f;
+@define-color ok          #5dffb0;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Inter", monospace;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: @text;
+}
+
+/* ── Panels: dark glass, cyan HUD brackets on left/right, hairline top/bottom */
+#workspaces,
+#window,
+#center,
+#net,
+#sys,
+#language,
+#custom-dominator {
+    background: linear-gradient(180deg, rgba(10, 22, 32, 0.93), rgba(4, 9, 15, 0.95));
+    border-left: 2px solid @cyan;
+    border-right: 2px solid @cyan;
+    border-top: 1px solid rgba(53, 224, 245, 0.18);
+    border-bottom: 1px solid rgba(53, 224, 245, 0.18);
+    border-radius: 3px;
+    padding: 0 6px;
+}
+
+/* ── Modules inside panels ────────────────────────────────────────────────── */
+#tray,
+#pulseaudio,
+#network,
+#bluetooth,
+#cpu,
+#memory,
+#battery,
+#clock.date,
+#clock.time {
+    background: transparent;
+    color: @text;
+    padding: 0 10px;
+    margin: 4px 1px;
+    border-radius: 2px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#cpu:hover,
+#memory:hover,
+#battery:hover,
+#clock.time:hover {
+    background: rgba(53, 224, 245, 0.12);
+    color: @cyan-bright;
+}
+
+/* ── Left ─────────────────────────────────────────────────────────────────── */
+
+/* white polymer badge, like the Dominator's body */
+#custom-distro {
+    background: linear-gradient(180deg, #f6fafc, #a9b9c3);
+    color: @void;
+    font-size: 17px;
+    padding: 0 14px;
+    border-radius: 3px;
+    border-bottom: 2px solid @cyan;
+}
+
+#custom-distro:hover {
+    background: linear-gradient(180deg, #ffffff, #c4d3dc);
+}
+
+/* ── Dominator mode readout ───────────────────────────────────────────────── */
+#custom-dominator {
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    font-size: 12px;
+    padding: 0 14px;
+}
+
+#custom-dominator.paralyzer {
+    color: @cyan;
+}
+
+#custom-dominator.eliminator {
+    color: @warn;
+    border-left-color: @warn;
+    border-right-color: @warn;
+    background: linear-gradient(180deg, rgba(40, 22, 6, 0.95), rgba(14, 8, 3, 0.96));
+}
+
+#custom-dominator.decomposer {
+    color: @crit;
+    border-left-color: @crit;
+    border-right-color: @crit;
+    background: linear-gradient(180deg, rgba(48, 8, 16, 0.96), rgba(16, 3, 6, 0.97));
+    animation-name: lethal;
+    animation-duration: 0.6s;
+    animation-timing-function: steps(2);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes lethal {
+    to {
+        background: linear-gradient(180deg, rgba(120, 12, 32, 0.95), rgba(40, 4, 10, 0.97));
+        color: #ffffff;
+    }
+}
+
+/* ── Workspaces ───────────────────────────────────────────────────────────── */
+#workspaces {
+    padding: 0 3px;
+}
+
+#workspaces button {
+    color: @text-dim;
+    padding: 0 11px;
+    margin: 4px 2px;
+    border-radius: 2px;
+    background: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    border-bottom: 2px solid transparent;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+#workspaces button:hover {
+    color: @cyan-bright;
+    background: rgba(53, 224, 245, 0.12);
+}
+
+#workspaces button.active {
+    color: @void;
+    background: linear-gradient(180deg, #5eecff, #1fb8cf);
+    border-bottom: 2px solid @polymer;
+    box-shadow: 0 0 8px rgba(53, 224, 245, 0.55);
+}
+
+#workspaces button.urgent {
+    color: @void;
+    background: @warn;
+}
+
+#window {
+    color: @text-dim;
+    font-size: 12px;
+    padding: 0 14px;
+}
+
+#window.empty {
+    color: @cyan-dim;
+}
+
+/* ── Center ───────────────────────────────────────────────────────────────── */
+#clock.date {
+    color: @text-dim;
+    font-size: 12px;
+    padding: 0 6px 0 12px;
+    letter-spacing: 0.06em;
+}
+
+#clock.time {
+    color: @cyan-bright;
+    font-family: "Orbitron", "JetBrainsMono Nerd Font", monospace;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 0 14px 0 6px;
+    text-shadow: 0 0 8px rgba(53, 224, 245, 0.45);
+}
+
+/* ── Right ────────────────────────────────────────────────────────────────── */
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#pulseaudio.muted {
+    color: @text-dim;
+}
+
+#network.disconnected,
+#network.disabled {
+    color: @text-dim;
+}
+
+#cpu.warning,
+#memory.warning,
+#battery.warning:not(.charging) {
+    color: @warn;
+}
+
+#cpu.critical,
+#memory.critical,
+#battery.critical:not(.charging) {
+    color: @crit;
+}
+
+#battery.charging,
+#battery.plugged,
+#battery.full {
+    color: @ok;
+}
+
+#language {
+    color: @text-dim;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    padding: 0 14px;
+}
+
+#language:hover {
+    color: @cyan-bright;
+}
+
+/* ── Tooltips & menus: Sibyl terminal panel ───────────────────────────────── */
+tooltip,
+menu {
+    background: rgba(5, 12, 20, 0.97);
+    color: @text;
+    border: 1px solid rgba(53, 224, 245, 0.45);
+    border-left: 3px solid @cyan;
+    border-radius: 3px;
+    padding: 4px 0;
+}
+
+tooltip label {
+    padding: 2px 12px;
+    font-size: 12px;
+}
+
+menu menuitem {
+    padding: 5px 14px;
+}
+
+menu menuitem:hover {
+    background: rgba(53, 224, 245, 0.14);
+    color: @cyan-bright;
+}
+
+menu separator {
+    background: rgba(53, 224, 245, 0.12);
+    margin: 3px 8px;
+    min-height: 1px;
+}
